@@ -5,12 +5,12 @@ import { getFirestore } from "firebase/firestore";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDSFwIxUzaG8kVIHynioD0wql7QJxOHmZo",
-  authDomain: "silsilatul-quran.firebaseapp.com",
-  projectId: "silsilatul-quran",
-  storageBucket: "silsilatul-quran.firebasestorage.app",
-  messagingSenderId: "277913591744",
-  appId: "1:277913591744:web:3a3d211a34eb40ea813225"
+  apiKey: "AIzaSyCCbpr-KJ7UDKvFQEI6r5POg-aJvk4ZTP8",
+  authDomain: "mrh-thehifdhjournal.firebaseapp.com",
+  projectId: "mrh-thehifdhjournal",
+  storageBucket: "mrh-thehifdhjournal.firebasestorage.app",
+  messagingSenderId: "1048874525743",
+  appId: "1:1048874525743:web:f2a135e9ed196bc20ed2da"
 };
 
 const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
