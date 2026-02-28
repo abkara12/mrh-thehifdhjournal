@@ -457,7 +457,7 @@ export default function Home() {
       <header className="max-w-7xl mx-auto px-6 sm:px-10 py-7 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="h-[80px] w-[85px] rounded-xl bg-white/100 backdrop-blur border border-gray-200 shadow-sm grid place-items-center">
-            <Image src="/mrh-logo1.png" alt="Hifdh Journal" width={58} height={58} className="rounded" priority />
+            <Image src="/mrh-logo1.png" alt="Hifdh Journal" width={65} height={65} className="rounded" priority />
           </div>
         </div>
 
