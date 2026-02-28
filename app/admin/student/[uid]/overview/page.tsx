@@ -168,7 +168,7 @@ setStudentName(
             <div className="mt-6 flex gap-3">
               <Link
                 href="/login"
-                className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-black text-white text-sm font-medium hover:bg-gray-900"
+                className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#6F8F88] text-white text-sm font-medium hover:bg-[#5E7B75]"
               >
                 Sign In
               </Link>
@@ -208,12 +208,12 @@ setStudentName(
   }
 
   return (
-    <main className="min-h-screen text-gray-900">
+    <main className="min-h-screen text-[#6F8F88]">
       <FancyBg />
 
       <header className="max-w-6xl mx-auto px-6 sm:px-10 py-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="h-11 w-11 rounded-2xl bg-black text-white grid place-items-center shadow-sm">
+          <div className="h-11 w-11 rounded-2xl bg-[#6F8F88] text-white grid place-items-center shadow-sm">
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none">
               <path
                 d="M8 7V4m8 3V4M5 11h14M7 21h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v12a2 2 0 002 2z"
@@ -234,7 +234,7 @@ setStudentName(
         <div className="flex flex-wrap items-center gap-3">
           <Link
             href={`/admin/student/${studentUid}`}
-            className="inline-flex items-center justify-center h-11 px-5 rounded-full bg-black text-white text-sm font-medium hover:bg-gray-900"
+            className="inline-flex items-center justify-center h-11 px-5 rounded-full bg-[#6F8F88] text-white text-sm font-medium hover:bg-[#5E7B75]"
           >
             Log Work
           </Link>
@@ -258,7 +258,7 @@ setStudentName(
         <div className="rounded-3xl border border-gray-200 bg-white/70 backdrop-blur shadow-sm overflow-hidden">
           <div className="p-6 sm:p-8 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <p className="uppercase tracking-widest text-xs text-[#9c7c38]">History table</p>
+              <p className="uppercase tracking-widest text-xs text-[#B7848C]">History table</p>
               <h2 className="mt-2 text-2xl font-semibold tracking-tight">Student daily logs</h2>
             </div>
 
@@ -279,7 +279,7 @@ setStudentName(
                 <div className="mt-4">
                   <Link
                     href={`/admin/student/${studentUid}`}
-                    className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-black text-white text-sm font-medium hover:bg-gray-900"
+                    className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#6F8F88] text-white text-sm font-medium hover:bg-[#5E7B75]"
                   >
                     Log first entry
                   </Link>
@@ -364,8 +364,8 @@ setStudentName(
                       const completed = Boolean(completedKey) || (duration ?? 0) > 0;
 
                       return (
-                        <tr key={r.id} className="text-sm hover:bg-black/[0.02] transition-colors">
-                          <td className="py-4 pr-4 pl-2 font-medium text-gray-900">
+                        <tr key={r.id} className="text-sm hover:bg-[#6F8F88]/[0.02] transition-colors">
+                          <td className="py-4 pr-4 pl-2 font-medium text-[#6F8F88]">
                             {r.dateKey ?? r.id}
                           </td>
 
@@ -452,10 +452,10 @@ setStudentName(
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="group relative overflow-hidden rounded-3xl border border-gray-200 bg-white/70 backdrop-blur p-6 shadow-sm hover:shadow-lg transition-all duration-300">
-      <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-[#9c7c38] via-[#9c7c38]/60 to-transparent" />
-      <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#9c7c38]/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-[#B7848C] via-[#B7848C]/60 to-transparent" />
+      <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#B7848C]/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       <div className="text-xs uppercase tracking-widest text-gray-500">{label}</div>
-      <div className="mt-2 text-3xl font-semibold tracking-tight text-gray-900">{value}</div>
+      <div className="mt-2 text-3xl font-semibold tracking-tight text-[#6F8F88]">{value}</div>
     </div>
   );
 }
@@ -464,9 +464,9 @@ function FancyBg() {
   return (
     <div className="pointer-events-none fixed inset-0 -z-10">
       <div className="absolute inset-0 bg-gradient-to-b from-[#efe8da] via-[#f7f4ee] to-white" />
-      <div className="absolute -top-56 left-[-10%] h-[780px] w-[780px] rounded-full bg-[#9c7c38]/30 blur-3xl" />
-      <div className="absolute top-[-20%] right-[-15%] h-[900px] w-[900px] rounded-full bg-black/20 blur-3xl" />
-      <div className="absolute -bottom-72 left-[20%] h-[980px] w-[980px] rounded-full bg-[#9c7c38]/22 blur-3xl" />
+      <div className="absolute -top-56 left-[-10%] h-[780px] w-[780px] rounded-full bg-[#B7848C]/30 blur-3xl" />
+      <div className="absolute top-[-20%] right-[-15%] h-[900px] w-[900px] rounded-full bg-[#6F8F88]/20 blur-3xl" />
+      <div className="absolute -bottom-72 left-[20%] h-[980px] w-[980px] rounded-full bg-[#B7848C]/22 blur-3xl" />
       <div
         className="absolute inset-0 opacity-[0.18]"
         style={{

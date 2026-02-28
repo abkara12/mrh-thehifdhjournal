@@ -58,13 +58,13 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen text-gray-900">
+    <main className="min-h-screen text-[#6F8F88]">
       {/* background */}
       <div className="pointer-events-none fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-b from-[#efe8da] via-[#f7f4ee] to-white" />
-        <div className="absolute -top-56 left-[-10%] h-[780px] w-[780px] rounded-full bg-[#9c7c38]/30 blur-3xl" />
-        <div className="absolute top-[-20%] right-[-15%] h-[900px] w-[900px] rounded-full bg-black/20 blur-3xl" />
-        <div className="absolute -bottom-72 left-[20%] h-[980px] w-[980px] rounded-full bg-[#9c7c38]/22 blur-3xl" />
+        <div className="absolute -top-56 left-[-10%] h-[780px] w-[780px] rounded-full bg-[#B7848C]/30 blur-3xl" />
+        <div className="absolute top-[-20%] right-[-15%] h-[900px] w-[900px] rounded-full bg-[#6F8F88]/20 blur-3xl" />
+        <div className="absolute -bottom-72 left-[20%] h-[980px] w-[980px] rounded-full bg-[#B7848C]/22 blur-3xl" />
       </div>
 
       <div className="max-w-6xl mx-auto px-6 sm:px-10 py-10">
@@ -72,11 +72,12 @@ export default function LoginPage() {
         <div className="flex items-center justify-between">
           <Link href="/" className="inline-flex items-center gap-3">
             <div className="h-[80px] w-[85px] rounded-xl bg-white/100 backdrop-blur border border-gray-200 shadow-sm grid place-items-center">
-              <Image src="/mrh-logo1.png" alt="Hifdh Journal" width={58} height={58} className="rounded" />
+              <Image src="/mrh-logo1
+      .png" alt="Hifdh Journal" width={58} height={58} className="rounded" />
             </div>
           </Link>
-          <Link href="/signup" className="text-sm font-medium text-gray-700 hover:text-black">
-            New here? <span className="text-[#9c7c38]">Create an account</span>
+          <Link href="/signup" className="text-sm font-medium text-gray-700 hover:text-[#6F8F88]">
+            New here? <span className="text-[#B7848C]">Create an account</span>
           </Link>
         </div>
 
@@ -84,7 +85,7 @@ export default function LoginPage() {
           {/* left */}
           <div className="lg:col-span-6">
             <div className="rounded-3xl border border-gray-200 bg-white/60 backdrop-blur p-8 shadow-lg">
-              <p className="uppercase tracking-widest text-xs text-[#9c7c38]">Student Portal</p>
+              <p className="uppercase tracking-widest text-xs text-[#B7848C]">Student Portal</p>
               <h1 className="mt-3 text-4xl font-bold tracking-tight leading-tight">
                 Sign in to continue
               </h1>
@@ -93,8 +94,8 @@ export default function LoginPage() {
               </p>
             </div>
 
-            <div className="mt-6 rounded-3xl bg-black text-white p-7 shadow-xl relative overflow-hidden">
-              <div className="absolute -right-24 -top-24 h-56 w-56 rounded-full bg-[#9c7c38]/25 blur-2xl" />
+            <div className="mt-6 rounded-3xl bg-[#6F8F88] text-white p-7 shadow-xl relative overflow-hidden">
+              <div className="absolute -right-24 -top-24 h-56 w-56 rounded-full bg-[#B7848C]/25 blur-2xl" />
               <p className="text-white/70 text-sm italic leading-relaxed">
                 “And We have certainly made the Qur’an easy for remembrance, so is there any who
                 will remember?”
@@ -124,7 +125,7 @@ export default function LoginPage() {
                     type="email"
                     required
                     placeholder="email@example.com"
-                    className="mt-2 w-full h-12 rounded-2xl border border-gray-200 bg-white/80 px-4 outline-none focus:ring-2 focus:ring-[#9c7c38]/40"
+                    className="mt-2 w-full h-12 rounded-2xl border border-gray-200 bg-white/80 px-4 outline-none focus:ring-2 focus:ring-[]/40"
                   />
                 </div>
 
@@ -137,7 +138,7 @@ export default function LoginPage() {
                       type={showPassword ? "text" : "password"}
                       required
                       placeholder="Your password"
-                      className="w-full h-12 rounded-2xl border border-gray-200 bg-white/80 px-4 pr-24 outline-none focus:ring-2 focus:ring-[#9c7c38]/40"
+                      className="w-full h-12 rounded-2xl border border-gray-200 bg-white/80 px-4 pr-24 outline-none focus:ring-2 focus:ring-[#B7848C]/40"
                     />
                     <button
                       type="button"
@@ -151,7 +152,7 @@ export default function LoginPage() {
 
                 <button
                   disabled={loading}
-                  className="mt-2 h-12 rounded-2xl bg-black text-white font-semibold hover:bg-gray-900 transition-colors shadow-sm disabled:opacity-60"
+                  className="mt-2 h-12 rounded-2xl bg-[#6F8F88] text-white font-semibold hover:bg-[#5E7B75] transition-colors shadow-sm disabled:opacity-60"
                 >
                   {loading ? "Signing in..." : "Sign In"}
                 </button>
@@ -159,7 +160,7 @@ export default function LoginPage() {
 
               <div className="mt-6 text-center text-sm text-gray-700">
                 Don’t have an account?{" "}
-                <Link href="/signup" className="font-semibold text-[#9c7c38] hover:underline">
+                <Link href="/signup" className="font-semibold text-[#B7848C] hover:underline">
                   Sign Up
                 </Link>
               </div>

@@ -43,13 +43,13 @@ function PageShell({
   rightSlot?: React.ReactNode;
 }) {
   return (
-    <main className="min-h-screen text-gray-900">
+    <main className="min-h-screen text-[#6F8F88]">
       {/* Background (matches your site vibe) */}
       <div className="pointer-events-none fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-b from-[#efe8da] via-[#f7f4ee] to-white" />
-        <div className="absolute -top-56 left-[-10%] h-[780px] w-[780px] rounded-full bg-[#9c7c38]/25 blur-3xl" />
-        <div className="absolute top-[-20%] right-[-15%] h-[900px] w-[900px] rounded-full bg-black/15 blur-3xl" />
-        <div className="absolute -bottom-72 left-[20%] h-[980px] w-[980px] rounded-full bg-[#9c7c38]/18 blur-3xl" />
+        <div className="absolute -top-56 left-[-10%] h-[780px] w-[780px] rounded-full bg-[]/25 blur-3xl" />
+        <div className="absolute top-[-20%] right-[-15%] h-[900px] w-[900px] rounded-full bg-[#6F8F88]/15 blur-3xl" />
+        <div className="absolute -bottom-72 left-[20%] h-[980px] w-[980px] rounded-full bg-[]/18 blur-3xl" />
         <div
           className="absolute inset-0 opacity-[0.14]"
           style={{
@@ -65,7 +65,7 @@ function PageShell({
       <div className="max-w-5xl mx-auto px-6 sm:px-10 py-10">
         <div className="flex items-start justify-between gap-6">
           <div>
-            <p className="uppercase tracking-widest text-xs text-[#9c7c38]">
+            <p className="uppercase tracking-widest text-xs text-[#B7848C]">
               Admin Portal
             </p>
             <h1 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-tight">
@@ -92,11 +92,11 @@ function PageShell({
 function SkeletonCard() {
   return (
     <div className="rounded-3xl border border-gray-200 bg-white/60 backdrop-blur p-6 shadow-sm">
-      <div className="h-4 w-28 bg-black/10 rounded-full animate-pulse" />
-      <div className="mt-3 h-8 w-2/3 bg-black/10 rounded-2xl animate-pulse" />
+      <div className="h-4 w-28 bg-[#6F8F88]/10 rounded-full animate-pulse" />
+      <div className="mt-3 h-8 w-2/3 bg-[#6F8F88]/10 rounded-2xl animate-pulse" />
       <div className="mt-6 grid gap-3">
-        <div className="h-12 w-full bg-black/10 rounded-2xl animate-pulse" />
-        <div className="h-12 w-full bg-black/10 rounded-2xl animate-pulse" />
+        <div className="h-12 w-full bg-[#6F8F88]/10 rounded-2xl animate-pulse" />
+        <div className="h-12 w-full bg-[#6F8F88]/10 rounded-2xl animate-pulse" />
       </div>
     </div>
   );
@@ -208,7 +208,7 @@ export default function AdminPage() {
           <div className="mt-5 flex flex-wrap gap-3">
             <Link
               href="/login"
-              className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-black text-white text-sm font-semibold hover:bg-gray-900"
+              className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#B7848C] text-white text-sm font-semibold hover:bg-[#9c7c38]"
             >
               Go to login
             </Link>
@@ -292,7 +292,7 @@ export default function AdminPage() {
           </div>
 
           <div className="mt-6 grid gap-3">
-            <label className="text-sm font-semibold text-gray-900">
+            <label className="text-sm font-semibold text-[#6F8F88]">
               Students
             </label>
 
@@ -300,7 +300,7 @@ export default function AdminPage() {
               <select
                 value={selectedUid}
                 onChange={(e) => setSelectedUid(e.target.value)}
-                className="w-full h-12 rounded-2xl border border-gray-200 bg-white/80 px-4 pr-10 outline-none focus:ring-2 focus:ring-[#9c7c38]/30"
+                className="w-full h-12 rounded-2xl border border-gray-200 bg-white/80 px-4 pr-10 outline-none focus:ring-2 focus:ring-[#B7848C]/30"
                 disabled={loadingStudents}
               >
                 {loadingStudents ? (
@@ -332,8 +332,8 @@ export default function AdminPage() {
                 href={selectedUid ? `/admin/student/${selectedUid}` : "/admin"}
                 className={`inline-flex items-center justify-center h-12 px-6 rounded-2xl text-sm font-semibold transition-colors shadow-sm ${
                   selectedUid
-                    ? "bg-black text-white hover:bg-gray-900"
-                    : "bg-black/40 text-white cursor-not-allowed"
+                    ? "bg-[#B7848C] text-white hover:bg-[#9c7c38]"
+                    : "bg-[#B7848C]/40 text-white cursor-not-allowed"
                 }`}
                 aria-disabled={!selectedUid}
                 onClick={(e) => {
@@ -367,7 +367,7 @@ export default function AdminPage() {
 
         {/* Optional small footer note (clean + not boring) */}
         <div className="rounded-3xl border border-gray-200 bg-white/60 backdrop-blur p-6 shadow-sm">
-          <div className="text-sm font-semibold text-gray-900">
+          <div className="text-sm font-semibold text-[#6F8F88]">
             Tip for faster workflow
           </div>
           <p className="mt-1 text-sm text-gray-700">

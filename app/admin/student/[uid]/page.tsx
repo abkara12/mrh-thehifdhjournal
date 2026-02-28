@@ -82,12 +82,12 @@ function Shell({
   children: React.ReactNode;
 }) {
   return (
-    <main className="min-h-screen text-gray-900">
+    <main className="min-h-screen text-[#6F8F88]">
       <div className="pointer-events-none fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-b from-[#efe8da] via-[#f7f4ee] to-white" />
-        <div className="absolute -top-56 left-[-10%] h-[780px] w-[780px] rounded-full bg-[#9c7c38]/25 blur-3xl" />
-        <div className="absolute top-[-20%] right-[-15%] h-[900px] w-[900px] rounded-full bg-black/15 blur-3xl" />
-        <div className="absolute -bottom-72 left-[20%] h-[980px] w-[980px] rounded-full bg-[#9c7c38]/18 blur-3xl" />
+        <div className="absolute -top-56 left-[-10%] h-[780px] w-[780px] rounded-full bg-[#B7848C]/25 blur-3xl" />
+        <div className="absolute top-[-20%] right-[-15%] h-[900px] w-[900px] rounded-full bg-[#6F8F88]/15 blur-3xl" />
+        <div className="absolute -bottom-72 left-[20%] h-[980px] w-[980px] rounded-full bg-[#B7848C]/18 blur-3xl" />
         <div
           className="absolute inset-0 opacity-[0.14]"
           style={{
@@ -103,7 +103,7 @@ function Shell({
       <div className="max-w-5xl mx-auto px-5 sm:px-10 py-8 sm:py-10">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
           <div className="min-w-0">
-            <p className="uppercase tracking-widest text-xs text-[#9c7c38]">
+            <p className="uppercase tracking-widest text-xs text-[#B7848C]">
               Admin → Student
             </p>
             <h1 className="mt-2 text-2xl sm:text-4xl font-semibold tracking-tight break-words">
@@ -128,12 +128,12 @@ function Shell({
 function LoadingCard() {
   return (
     <div className="rounded-3xl border border-gray-200 bg-white/60 backdrop-blur p-6 sm:p-7 shadow-sm">
-      <div className="h-5 w-40 bg-black/10 rounded-full animate-pulse" />
-      <div className="mt-3 h-10 w-2/3 bg-black/10 rounded-2xl animate-pulse" />
+      <div className="h-5 w-40 bg-[#6F8F88]/10 rounded-full animate-pulse" />
+      <div className="mt-3 h-10 w-2/3 bg-[#6F8F88]/10 rounded-2xl animate-pulse" />
       <div className="mt-6 grid gap-3">
-        <div className="h-12 bg-black/10 rounded-2xl animate-pulse" />
-        <div className="h-12 bg-black/10 rounded-2xl animate-pulse" />
-        <div className="h-12 bg-black/10 rounded-2xl animate-pulse" />
+        <div className="h-12 bg-[#6F8F88]/10 rounded-2xl animate-pulse" />
+        <div className="h-12 bg-[#6F8F88]/10 rounded-2xl animate-pulse" />
+        <div className="h-12 bg-[#6F8F88]/10 rounded-2xl animate-pulse" />
       </div>
     </div>
   );
@@ -432,7 +432,7 @@ setStudentName(
           <div className="mt-5 flex flex-col sm:flex-row gap-3">
             <Link
               href="/login"
-              className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-black text-white text-sm font-semibold hover:bg-gray-900"
+              className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#B7848C] text-white text-sm font-semibold hover:bg-[#9c7c38]"
             >
               Go to login
             </Link>
@@ -473,7 +473,7 @@ setStudentName(
           </Link>
           <Link
             href={`/admin/student/${studentUid}/overview`}
-            className="inline-flex w-full sm:w-auto items-center justify-center h-11 px-5 rounded-full bg-black text-white hover:bg-gray-900 transition-colors text-sm font-semibold shadow-sm"
+            className="inline-flex w-full sm:w-auto items-center justify-center h-11 px-5 rounded-full bg-[#B7848C] text-white hover:bg-[#9c7c38] transition-colors text-sm font-semibold shadow-sm"
           >
             Student Overview
           </Link>
@@ -483,7 +483,7 @@ setStudentName(
       <div className="rounded-3xl border border-gray-200 bg-white/70 backdrop-blur p-5 sm:p-8 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white/70 px-4 py-2 text-xs font-semibold text-gray-700 w-fit">
-            <span className="h-2 w-2 rounded-full bg-[#9c7c38]" />
+            <span className="h-2 w-2 rounded-full bg-[#B7848C]" />
             Update today’s work
           </div>
 
@@ -509,7 +509,7 @@ setStudentName(
         <form onSubmit={handleSave} className="mt-6 grid gap-5">
           {/* Sabak */}
           <div className="rounded-3xl border border-gray-200 bg-white/60 p-5 sm:p-6">
-            <div className="text-sm font-semibold text-gray-900">Sabak</div>
+            <div className="text-sm font-semibold text-[#6F8F88]">Sabak</div>
             <div className="mt-4 grid gap-4">
               <Field
                 label="Sabak amount"
@@ -537,7 +537,7 @@ setStudentName(
 
           {/* Sabak Dhor */}
           <div className="rounded-3xl border border-gray-200 bg-white/60 p-5 sm:p-6">
-            <div className="text-sm font-semibold text-gray-900">Sabak Dhor</div>
+            <div className="text-sm font-semibold text-[#6F8F88]">Sabak Dhor</div>
             <div className="mt-4 grid gap-4">
               <Field
                 label="Sabak Dhor amount"
@@ -572,7 +572,7 @@ setStudentName(
 
           {/* Dhor */}
           <div className="rounded-3xl border border-gray-200 bg-white/60 p-5 sm:p-6">
-            <div className="text-sm font-semibold text-gray-900">Dhor</div>
+            <div className="text-sm font-semibold text-[#6F8F88]">Dhor</div>
             <div className="mt-4 grid gap-4">
               <Field
                 label="Dhor amount"
@@ -609,7 +609,7 @@ setStudentName(
           <div className="rounded-3xl border border-gray-200 bg-white/70 p-5 sm:p-6">
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
               <div>
-                <div className="text-sm font-semibold text-gray-900">Weekly Goal</div>
+                <div className="text-sm font-semibold text-[#6F8F88]">Weekly Goal</div>
                 <div className="mt-1 text-sm text-gray-700">
                   Set once per week. When finished, tick “Completed” to calculate duration.
                 </div>
@@ -623,7 +623,7 @@ setStudentName(
             <div className="mt-4 grid gap-4">
               <label className="grid gap-2">
                 <div className="flex items-end justify-between gap-4">
-                  <span className="text-sm font-semibold text-gray-900">Weekly Sabak Goal</span>
+                  <span className="text-sm font-semibold text-[#6F8F88]">Weekly Sabak Goal</span>
                   <span className="text-xs text-gray-500">
                     {goalLockedThisWeek ? "Locked (already set this week)" : "Set it now"}
                   </span>
@@ -633,7 +633,7 @@ setStudentName(
                   value={weeklyGoal}
                   onChange={(e) => setWeeklyGoal(e.target.value)}
                   disabled={goalLockedThisWeek}
-                  className="h-12 rounded-2xl border border-gray-200 bg-white/80 px-4 outline-none focus:ring-2 focus:ring-[#9c7c38]/30 disabled:opacity-60"
+                  className="h-12 rounded-2xl border border-gray-200 bg-white/80 px-4 outline-none focus:ring-2 focus:ring-[#B7848C]/30 disabled:opacity-60"
                   placeholder="Example: 10 pages"
                 />
               </label>
@@ -649,7 +649,7 @@ setStudentName(
 
               <label className="flex items-center justify-between gap-4 rounded-2xl border border-gray-200 bg-white/70 px-4 py-4">
                 <div>
-                  <div className="text-sm font-semibold text-gray-900">Weekly Goal Completed</div>
+                  <div className="text-sm font-semibold text-[#6F8F88]">Weekly Goal Completed</div>
                   <div className="mt-1 text-xs text-gray-600">
                     Tick only when the student has finished their weekly goal.
                   </div>
@@ -669,7 +669,7 @@ setStudentName(
           <div className="pt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <button
               disabled={saving}
-              className="h-12 w-full sm:w-auto px-7 rounded-2xl bg-black text-white font-semibold hover:bg-gray-900 disabled:opacity-60 shadow-sm"
+              className="h-12 w-full sm:w-auto px-7 rounded-2xl bg-[#B7848C] text-white font-semibold hover:bg-[#9c7c38] disabled:opacity-60 shadow-sm"
             >
               {saving ? "Saving..." : "Save"}
             </button>
@@ -702,13 +702,13 @@ function Field({
   return (
     <label className="grid gap-2">
       <div className="flex items-end justify-between gap-4">
-        <span className="text-sm font-semibold text-gray-900">{label}</span>
+        <span className="text-sm font-semibold text-[#6F8F88]">{label}</span>
         <span className="text-xs text-gray-500">{hint}</span>
       </div>
       <input
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="h-12 rounded-2xl border border-gray-200 bg-white/80 px-4 outline-none focus:ring-2 focus:ring-[#9c7c38]/30"
+        className="h-12 rounded-2xl border border-gray-200 bg-white/80 px-4 outline-none focus:ring-2 focus:ring-[#B7848C]/30"
         placeholder="Type here…"
       />
     </label>
@@ -729,13 +729,13 @@ function SelectField({
   return (
     <label className="grid gap-2">
       <div className="flex items-end justify-between gap-4">
-        <span className="text-sm font-semibold text-gray-900">{label}</span>
+        <span className="text-sm font-semibold text-[#6F8F88]">{label}</span>
         <span className="text-xs text-gray-500">Select</span>
       </div>
       <select
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="h-12 rounded-2xl border border-gray-200 bg-white/80 px-4 outline-none focus:ring-2 focus:ring-[#9c7c38]/30"
+        className="h-12 rounded-2xl border border-gray-200 bg-white/80 px-4 outline-none focus:ring-2 focus:ring-[#B7848C]/30"
       >
         {options.map((o) => (
           <option key={o.value} value={o.value}>
@@ -751,7 +751,7 @@ function MiniInfo({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-2xl border border-gray-200 bg-white/70 px-4 py-3">
       <div className="text-xs text-gray-500">{label}</div>
-      <div className="mt-1 text-sm font-semibold text-gray-900 break-words">{value}</div>
+      <div className="mt-1 text-sm font-semibold text-[#6F8F88] break-words">{value}</div>
     </div>
   );
 }
