@@ -115,7 +115,7 @@ function InstallAppPrompt() {
 
   return (
     <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-4">
-      <div className="absolute inset-0 bg-[#5B726D]/50 backdrop-blur-[2px]" onClick={handleClose} />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#F6F3F2] via-[#F0ECEB] to-[#EAE5E3]" onClick={handleClose} />
 
       <div className="relative w-full max-w-md rounded-3xl border border-white/30 bg-white/75 backdrop-blur-2xl shadow-2xl overflow-hidden">
         <div className="pointer-events-none absolute inset-0">
