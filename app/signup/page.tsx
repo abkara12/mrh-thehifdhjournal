@@ -67,8 +67,7 @@ export default function SignupPage() {
     <main className="min-h-screen text-[#5B726D]">
       {/* background */}
       <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#efe8da] via-[#f7f4ee] to-white" />
-        <div className="absolute -top-56 left-[-10%] h-[780px] w-[780px] rounded-full bg-[#A46B72]/30 blur-3xl" />
+<div className="absolute inset-0 bg-gradient-to-b from-[#e6dcc6] via-[#f2eee4] to-[#f9f7f1]" />        <div className="absolute -top-56 left-[-10%] h-[780px] w-[780px] rounded-full bg-[#A46B72]/30 blur-3xl" />
         <div className="absolute top-[-20%] right-[-15%] h-[900px] w-[900px] rounded-full bg-[#5B726D]/20 blur-3xl" />
         <div className="absolute -bottom-72 left-[20%] h-[980px] w-[980px] rounded-full bg-[#A46B72]/22 blur-3xl" />
         <div
