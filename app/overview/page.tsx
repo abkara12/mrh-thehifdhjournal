@@ -31,9 +31,23 @@ function diffDaysInclusive(startKey: string, endKey: string) {
   const b = parseDateKey(endKey);
   const ms = b.getTime() - a.getTime();
   const days = Math.floor(ms / (1000 * 60 * 60 * 24));
-  return Math.max(0, days) + 1; // inclusive
+  return Math.max(0, days) + 1;
 }
 
+function getDayName(dateKey?: string) {
+  if (!dateKey) return "";
+  const d = parseDateKey(dateKey);
+  return d.toLocaleDateString("en-US", { weekday: "short" });
+}
+
+function getMonthLabel(dateKey?: string) {
+  if (!dateKey) return "";
+  const d = parseDateKey(dateKey);
+  return d.toLocaleDateString("en-US", {
+    month: "long",
+    year: "numeric",
+  });
+}
 type LogRow = {
   id: string;
   dateKey?: string;
@@ -52,7 +66,8 @@ type LogRow = {
   sabakDhorMistakes?: string;
   dhorMistakes?: string;
 
-  // weekly goal meta (admin saves these)
+  notes?: string; // ✅ ADD THIS
+
   weeklyGoalStartDateKey?: string;
   weeklyGoalCompletedDateKey?: string;
   weeklyGoalDurationDays?: number | string;
@@ -130,7 +145,7 @@ export default function OverviewPage() {
             <div className="mt-6 flex gap-3">
               <Link
                 href="/login"
-                className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#5B726D] text-white text-sm font-medium hover:bg-[#5E7B75]"
+                className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-black text-white text-sm font-medium hover:bg-gray-900"
               >
                 Sign In
               </Link>
@@ -148,12 +163,12 @@ export default function OverviewPage() {
   }
 
   return (
-    <main className="min-h-screen text-[#5B726D]">
+    <main className="min-h-screen text-gray-900">
       <FancyBg />
 
       <header className="max-w-6xl mx-auto px-6 sm:px-10 py-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="h-11 w-11 rounded-2xl bg-[#5B726D] text-white grid place-items-center shadow-sm">
+          <div className="h-11 w-11 rounded-2xl bg-black text-white grid place-items-center shadow-sm">
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none">
               <path
                 d="M8 7V4m8 3V4M5 11h14M7 21h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v12a2 2 0 002 2z"
@@ -195,7 +210,7 @@ export default function OverviewPage() {
         <div className="rounded-3xl border border-gray-200 bg-white/70 backdrop-blur shadow-sm overflow-hidden">
           <div className="p-6 sm:p-8 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <p className="uppercase tracking-widest text-xs text-[#A46B72]">History table</p>
+              <p className="uppercase tracking-widest text-xs text-[#9c7c38]">History table</p>
               <h2 className="mt-2 text-2xl font-semibold tracking-tight">Your daily logs</h2>
               <p className="mt-2 text-gray-700">
                 This includes everything your Ustad logs for you.
@@ -226,6 +241,9 @@ export default function OverviewPage() {
                   <thead>
                     <tr className="text-left text-[11px] uppercase tracking-[0.18em] text-gray-500">
                       <th className="sticky top-0 bg-white/60 backdrop-blur pb-3 pr-4 pl-2 border-b border-gray-200">
+                        Day
+                      </th>
+                      <th className="sticky top-0 bg-white/60 backdrop-blur pb-3 pr-4 pl-2 border-b border-gray-200">
                         Date
                       </th>
 
@@ -235,6 +253,9 @@ export default function OverviewPage() {
                       <th className="sticky top-0 bg-white/60 backdrop-blur pb-3 px-4 border-b border-gray-200 border-l border-gray-100">
                         Read
                       </th>
+                       <th className="sticky top-0 bg-white/60 backdrop-blur pb-3 px-4 border-b border-gray-200 border-l border-gray-100">
+                        Notes
+                      </th>
 
                       <th className="sticky top-0 bg-white/60 backdrop-blur pb-3 px-4 border-b border-gray-200 border-l border-gray-100">
                         Sabak Dhor
@@ -242,12 +263,18 @@ export default function OverviewPage() {
                       <th className="sticky top-0 bg-white/60 backdrop-blur pb-3 px-4 border-b border-gray-200 border-l border-gray-100">
                         Read
                       </th>
+                      <th className="sticky top-0 bg-white/60 backdrop-blur pb-3 px-4 border-b border-gray-200 border-l border-gray-100">
+                        Notes
+                      </th>
 
                       <th className="sticky top-0 bg-white/60 backdrop-blur pb-3 px-4 border-b border-gray-200 border-l border-gray-100">
                         Dhor
                       </th>
                       <th className="sticky top-0 bg-white/60 backdrop-blur pb-3 px-4 border-b border-gray-200 border-l border-gray-100">
                         Read
+                      </th>
+                       <th className="sticky top-0 bg-white/60 backdrop-blur pb-3 px-4 border-b border-gray-200 border-l border-gray-100">
+                        Notes
                       </th>
 
                       <th className="sticky top-0 bg-white/60 backdrop-blur pb-3 px-4 border-b border-gray-200 border-l border-gray-100">
@@ -270,7 +297,12 @@ export default function OverviewPage() {
                   </thead>
 
                   <tbody className="divide-y divide-gray-200">
-                    {rows.map((r) => {
+ {rows.map((r, index) => {
+                    const currentMonth = getMonthLabel(r.dateKey);
+                    const prevMonth =
+                    index > 0 ? getMonthLabel(rows[index - 1].dateKey) : null;
+
+                    const showMonthHeader = index === 0 || currentMonth !== prevMonth;
                       const g = num(r.weeklyGoal);
 
                       const startKey = toText(r.weeklyGoalStartDateKey);
@@ -292,8 +324,23 @@ export default function OverviewPage() {
                       const completed = Boolean(completedKey) || (duration ?? 0) > 0;
 
                       return (
-                        <tr key={r.id} className="text-sm hover:bg-[#5B726D]/[0.02] transition-colors">
-                          <td className="py-4 pr-4 pl-2 font-medium text-[#5B726D]">
+                        <>
+  {showMonthHeader && (
+    <tr>
+      <td
+        colSpan={16}
+        className="bg-gradient-to-r from-[#9c7c38]/15 to-transparent text-sm font-semibold text-gray-900 py-4 px-4 uppercase tracking-wider"
+      >
+        {currentMonth}
+      </td>
+    </tr>
+  )}
+
+                        <tr key={r.id} className="text-sm hover:bg-black/[0.02] transition-colors">
+                        <td className="py-4 pr-4 pl-2 font-medium text-gray-600">
+  {getDayName(r.dateKey)}
+</td>
+                          <td className="py-4 pr-4 pl-2 font-medium text-gray-900">
                             {r.dateKey ?? r.id}
                           </td>
 
@@ -303,6 +350,9 @@ export default function OverviewPage() {
                           <td className="py-4 px-4 text-gray-700 border-l border-gray-100">
                             {toText(r.sabakRead) || "—"}
                           </td>
+                         <td className="py-4 px-4 text-gray-800 border-l border-gray-100">
+  {toText(r.notes) || "—"}
+</td>
 
                           <td className="py-4 px-4 text-gray-800 border-l border-gray-100">
                             {toText(r.sabakDhor) || "—"}
@@ -310,6 +360,9 @@ export default function OverviewPage() {
                           <td className="py-4 px-4 text-gray-700 border-l border-gray-100">
                             {toText(r.sabakDhorRead) || "—"}
                           </td>
+                          <td className="py-4 px-4 text-gray-800 border-l border-gray-100">
+  {toText(r.notes) || "—"}
+</td>
 
                           <td className="py-4 px-4 text-gray-800 border-l border-gray-100">
                             {toText(r.dhor) || "—"}
@@ -317,6 +370,9 @@ export default function OverviewPage() {
                           <td className="py-4 px-4 text-gray-700 border-l border-gray-100">
                             {toText(r.dhorRead) || "—"}
                           </td>
+                          <td className="py-4 px-4 text-gray-800 border-l border-gray-100">
+  {toText(r.notes) || "—"}
+</td>
 
                           <td className="py-4 px-4 text-gray-800 border-l border-gray-100">
                             {toText(r.sabakDhorMistakes) || "—"}
@@ -354,6 +410,7 @@ export default function OverviewPage() {
                             {duration ? `${duration} day(s)` : "—"}
                           </td>
                         </tr>
+                        </>
                       );
                     })}
                   </tbody>
@@ -371,10 +428,10 @@ export default function OverviewPage() {
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="group relative overflow-hidden rounded-3xl border border-gray-200 bg-white/70 backdrop-blur p-6 shadow-sm hover:shadow-lg transition-all duration-300">
-      <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-[#A46B72] via-[#A46B72]/60 to-transparent" />
-      <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#A46B72]/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-[#9c7c38] via-[#9c7c38]/60 to-transparent" />
+      <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#9c7c38]/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       <div className="text-xs uppercase tracking-widest text-gray-500">{label}</div>
-      <div className="mt-2 text-3xl font-semibold tracking-tight text-[#5B726D]">{value}</div>
+      <div className="mt-2 text-3xl font-semibold tracking-tight text-gray-900">{value}</div>
     </div>
   );
 }
@@ -383,9 +440,9 @@ function FancyBg() {
   return (
     <div className="pointer-events-none fixed inset-0 -z-10">
       <div className="absolute inset-0 bg-gradient-to-b from-[#efe8da] via-[#f7f4ee] to-white" />
-      <div className="absolute -top-56 left-[-10%] h-[780px] w-[780px] rounded-full bg-[#A46B72]/30 blur-3xl" />
-      <div className="absolute top-[-20%] right-[-15%] h-[900px] w-[900px] rounded-full bg-[#5B726D]/20 blur-3xl" />
-      <div className="absolute -bottom-72 left-[20%] h-[980px] w-[980px] rounded-full bg-[#A46B72]/22 blur-3xl" />
+      <div className="absolute -top-56 left-[-10%] h-[780px] w-[780px] rounded-full bg-[#9c7c38]/30 blur-3xl" />
+      <div className="absolute top-[-20%] right-[-15%] h-[900px] w-[900px] rounded-full bg-black/20 blur-3xl" />
+      <div className="absolute -bottom-72 left-[20%] h-[980px] w-[980px] rounded-full bg-[#9c7c38]/22 blur-3xl" />
       <div
         className="absolute inset-0 opacity-[0.18]"
         style={{
