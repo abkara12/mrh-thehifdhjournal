@@ -208,7 +208,7 @@ export default function AdminPage() {
           <div className="mt-5 flex flex-wrap gap-3">
             <Link
               href="/login"
-              className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#A46B72] text-white text-sm font-semibold hover:bg-[#9c7c38]"
+              className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#A46B72] text-white text-sm font-semibold hover:bg-[#A46B72]"
             >
               Go to login
             </Link>
@@ -332,7 +332,7 @@ export default function AdminPage() {
                 href={selectedUid ? `/admin/student/${selectedUid}` : "/admin"}
                 className={`inline-flex items-center justify-center h-12 px-6 rounded-2xl text-sm font-semibold transition-colors shadow-sm ${
                   selectedUid
-                    ? "bg-[#A46B72] text-white hover:bg-[#9c7c38]"
+                    ? "bg-[#A46B72] text-white hover:bg-[#A46B72]"
                     : "bg-[#A46B72]/40 text-white cursor-not-allowed"
                 }`}
                 aria-disabled={!selectedUid}

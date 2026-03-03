@@ -183,7 +183,7 @@ to-[#D0CBC8]/60" onClick={handleClose} />
               <button
                 type="button"
                 onClick={handleInstall}
-                className="flex-1 h-12 rounded-2xl bg-[#A46B72] text-white font-semibold hover:bg-[#9c7c38] transition-colors disabled:opacity-60"
+                className="flex-1 h-12 rounded-2xl bg-[#A46B72] text-white font-semibold hover:bg-[#A46B72] transition-colors disabled:opacity-60"
                 disabled={!deferred}
               >
                 Install
@@ -346,7 +346,7 @@ function MenuRow({
 }) {
   const base =
     "group relative overflow-hidden rounded-2xl border px-4 py-4 text-sm font-semibold transition-all duration-300";
-  const primary = "border-black bg-[#A46B72] text-white hover:bg-[#9c7c38] shadow-sm";
+  const primary = "border-black bg-[#A46B72] text-white hover:bg-[#A46B72] shadow-sm";
   const normal = "border-gray-200 bg-white/70 text-[#5B726D] hover:bg-white shadow-sm";
 
   return (
@@ -490,7 +490,7 @@ export default function Home() {
               </Link>
               <Link
                 href="/signup"
-                className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#A46B72] text-white text-sm font-medium hover:bg-[#9c7c38] shadow-sm"
+                className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#A46B72] text-white text-sm font-medium hover:bg-[#A46B72] shadow-sm"
               >
                 Sign Up
               </Link>
@@ -660,7 +660,7 @@ export default function Home() {
       // ✅ Student button
       <Link
         href="/overview"
-        className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-[#A46B72] text-white text-base font-medium hover:bg-[#9c7c38] shadow-sm"
+        className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-[#A46B72] text-white text-base font-medium hover:bg-[#A46B72] shadow-sm"
       >
         My Overview
       </Link>
@@ -670,7 +670,7 @@ export default function Home() {
     <>
       <Link
         href="/signup"
-        className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-[#A46B72] text-white text-base font-medium hover:bg-[#9c7c38] shadow-sm"
+        className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-[#A46B72] text-white text-base font-medium hover:bg-[#A46B72] shadow-sm"
       >
         Begin My Journey
       </Link>
@@ -906,7 +906,7 @@ Through focused Sabak tracking, Dhor monitoring, weekly targets, and personalise
               <div className="md:col-span-4 flex md:justify-end gap-3">
                 <Link
                   href="/signup"
-                  className="inline-flex items-center justify-center h-12 px-7 rounded-full bg-[#A46B72] text-white text-base font-medium hover:bg-[#9c7c38] shadow-sm"
+                  className="inline-flex items-center justify-center h-12 px-7 rounded-full bg-[#A46B72] text-white text-base font-medium hover:bg-[#A46B72] shadow-sm"
                 >
                   Sign Up
                 </Link>
@@ -980,7 +980,7 @@ Through focused Sabak tracking, Dhor monitoring, weekly targets, and personalise
                   <div className="flex gap-3">
                     <a
                       href="/signup"
-                      className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#A46B72] text-white text-sm font-medium hover:bg-[#9c7c38]"
+                      className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#A46B72] text-white text-sm font-medium hover:bg-[#A46B72]"
                     >
                       Enrol Now
                     </a>

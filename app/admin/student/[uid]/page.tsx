@@ -432,7 +432,7 @@ setStudentName(
           <div className="mt-5 flex flex-col sm:flex-row gap-3">
             <Link
               href="/login"
-              className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#A46B72] text-white text-sm font-semibold hover:bg-[#9c7c38]"
+              className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#A46B72] text-white text-sm font-semibold hover:bg-[#A46B72]"
             >
               Go to login
             </Link>
@@ -473,7 +473,7 @@ setStudentName(
           </Link>
           <Link
             href={`/admin/student/${studentUid}/overview`}
-            className="inline-flex w-full sm:w-auto items-center justify-center h-11 px-5 rounded-full bg-[#A46B72] text-white hover:bg-[#9c7c38] transition-colors text-sm font-semibold shadow-sm"
+            className="inline-flex w-full sm:w-auto items-center justify-center h-11 px-5 rounded-full bg-[#A46B72] text-white hover:bg-[#A46B72] transition-colors text-sm font-semibold shadow-sm"
           >
             Student Overview
           </Link>
@@ -669,7 +669,7 @@ setStudentName(
           <div className="pt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <button
               disabled={saving}
-              className="h-12 w-full sm:w-auto px-7 rounded-2xl bg-[#A46B72] text-white font-semibold hover:bg-[#9c7c38] disabled:opacity-60 shadow-sm"
+              className="h-12 w-full sm:w-auto px-7 rounded-2xl bg-[#A46B72] text-white font-semibold hover:bg-[#A46B72] disabled:opacity-60 shadow-sm"
             >
               {saving ? "Saving..." : "Save"}
             </button>
