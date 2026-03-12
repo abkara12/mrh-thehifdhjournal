@@ -192,6 +192,24 @@ const [studentName, setStudentName] = useState("");
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
 
+    function resetFields(){
+      setSabak("");
+      setSabakDhor("");
+      setDhor("");
+
+      setSabakReadQuality("");
+      setSabakReadNotes("");  
+
+      setSabakDhorReadQuality("");
+      setSabakDhorReadNotes("");
+
+      setDhorReadQuality("");
+      setDhorReadNotes("");
+
+      setSabakDhorMistakes("");
+      setDhorMistakes("");
+    }
+
   const dateKey = useMemo(() => getDateKeySA(), []);
   const currentWeekKey = useMemo(() => isoWeekKeyFromDateKey(dateKey), [dateKey]);
 
@@ -226,9 +244,23 @@ const [studentName, setStudentName] = useState("");
 
   useEffect(() => {
     async function loadStudent() {
-      const sDoc = await getDoc(doc(db, "users", studentUid));
-      if (sDoc.exists()) {
-        const data = sDoc.data() as any;
+    if (!studentUid) return;
+
+    // 🔹 Reset fields BEFORE loading student
+    resetFields();
+    setMarkGoalCompleted(false);
+    setMsg(null);
+
+    const sDoc = await getDoc(doc(db, "users", studentUid));
+    if (sDoc.exists()) {
+      const data = sDoc.data() as any;
+
+      const name =
+        typeof data.username === "string"
+          ? data.username
+          : typeof data.email === "string"
+          ? data.email
+          : "Student";
 
 setStudentName(
   toText(data.username) || toText(data.email) || "Student"
@@ -241,25 +273,25 @@ setStudentName(
         const dur = data.weeklyGoalDurationDays;
         setWeeklyGoalDurationDays(typeof dur === "number" ? dur : dur ? Number(dur) : null);
 
-        // seed with snapshot
-        setSabak(toText(data.currentSabak));
-        setSabakDhor(toText(data.currentSabakDhor));
-        setDhor(toText(data.currentDhor));
-        setSabakDhorMistakes(toText(data.currentSabakDhorMistakes));
-        setDhorMistakes(toText(data.currentDhorMistakes));
+        // // seed with snapshot
+        // setSabak(toText(data.currentSabak));
+        // setSabakDhor(toText(data.currentSabakDhor));
+        // setDhor(toText(data.currentDhor));
+        // setSabakDhorMistakes(toText(data.currentSabakDhorMistakes));
+        // setDhorMistakes(toText(data.currentDhorMistakes));
 
-        // ✅ seed reading snapshot
-        // read from either naming style
-        setSabakReadQuality(pickText(data.currentSabakRead, data.currentSabakReadQuality));
-        setSabakReadNotes(toText(data.currentSabakReadNotes));
+        // // ✅ seed reading snapshot
+        // // read from either naming style
+        // setSabakReadQuality(pickText(data.currentSabakRead, data.currentSabakReadQuality));
+        // setSabakReadNotes(toText(data.currentSabakReadNotes));
 
-        setSabakDhorReadQuality(
-          pickText(data.currentSabakDhorRead, data.currentSabakDhorReadQuality)
-        );
-        setSabakDhorReadNotes(toText(data.currentSabakDhorReadNotes));
+        // setSabakDhorReadQuality(
+        //   pickText(data.currentSabakDhorRead, data.currentSabakDhorReadQuality)
+        // );
+        // setSabakDhorReadNotes(toText(data.currentSabakDhorReadNotes));
 
-        setDhorReadQuality(pickText(data.currentDhorRead, data.currentDhorReadQuality));
-        setDhorReadNotes(toText(data.currentDhorReadNotes));
+        // setDhorReadQuality(pickText(data.currentDhorRead, data.currentDhorReadQuality));
+        // setDhorReadNotes(toText(data.currentDhorReadNotes));
       }
 
       // today's log overrides if exists
@@ -374,25 +406,25 @@ setStudentName(
           weeklyGoalCompletedDateKey: nextCompletedKey || null,
           weeklyGoalDurationDays: nextDuration ?? null,
 
-          currentSabak: sabak,
-          currentSabakDhor: sabakDhor,
-          currentDhor: dhor,
+          // currentSabak: sabak,
+          // currentSabakDhor: sabakDhor,
+          // currentDhor: dhor,
 
-          // ✅ Save snapshot in BOTH naming styles too
-          currentSabakRead: sabakReadQuality,
-          currentSabakDhorRead: sabakDhorReadQuality,
-          currentDhorRead: dhorReadQuality,
+          // // ✅ Save snapshot in BOTH naming styles too
+          // currentSabakRead: sabakReadQuality,
+          // currentSabakDhorRead: sabakDhorReadQuality,
+          // currentDhorRead: dhorReadQuality,
 
-          currentSabakReadQuality: sabakReadQuality,
-          currentSabakDhorReadQuality: sabakDhorReadQuality,
-          currentDhorReadQuality: dhorReadQuality,
+          // currentSabakReadQuality: sabakReadQuality,
+          // currentSabakDhorReadQuality: sabakDhorReadQuality,
+          // currentDhorReadQuality: dhorReadQuality,
 
-          currentSabakReadNotes: sabakReadNotes,
-          currentSabakDhorReadNotes: sabakDhorReadNotes,
-          currentDhorReadNotes: dhorReadNotes,
+          // currentSabakReadNotes: sabakReadNotes,
+          // currentSabakDhorReadNotes: sabakDhorReadNotes,
+          // currentDhorReadNotes: dhorReadNotes,
 
-          currentSabakDhorMistakes: sabakDhorMistakes,
-          currentDhorMistakes: dhorMistakes,
+          // currentSabakDhorMistakes: sabakDhorMistakes,
+          // currentDhorMistakes: dhorMistakes,
 
           updatedAt: serverTimestamp(),
           lastUpdatedBy: me?.uid ?? null,
@@ -409,6 +441,11 @@ setStudentName(
 
       setMsg("Saved ✅");
       setTimeout(() => setMsg(null), 2500);
+
+      resetFields();
+      setMarkGoalCompleted(false);
+
+      resetFields();
     } catch (err: any) {
       setMsg(err?.message ? `Error: ${err.message}` : "Error saving.");
     } finally {
