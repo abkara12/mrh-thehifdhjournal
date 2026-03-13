@@ -296,7 +296,7 @@ setStudentName(
 
       // today's log overrides if exists
       const todayDoc = await getDoc(doc(db, "users", studentUid, "logs", dateKey));
-      if (todayDoc.exists()) {
+if (todayDoc.exists() && !msg) {
         const d = todayDoc.data() as any;
         setSabak(toText(d.sabak));
         setSabakDhor(toText(d.sabakDhor));
