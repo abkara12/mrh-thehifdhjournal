@@ -52,23 +52,25 @@ type LogRow = {
   id: string;
   dateKey?: string;
 
-  sabak?: string;
+ sabak?: string;
   sabakRead?: string;
   sabakReadNotes?: string;
+  sabakReadQuality?: string;
 
   sabakDhor?: string;
   sabakDhorRead?: string;
   sabakDhorReadNotes?: string;
+  sabakDhorReadQuality?: string;
 
   dhor?: string;
   dhorRead?: string;
   dhorReadNotes?: string;
-
-  weeklyGoal?: string;
+  dhorReadQuality?: string;
 
   sabakDhorMistakes?: string;
   dhorMistakes?: string;
 
+  weeklyGoal?: string;
   weeklyGoalStartDateKey?: string;
   weeklyGoalCompletedDateKey?: string;
   weeklyGoalDurationDays?: number | string;
