@@ -213,12 +213,12 @@ const currentMonthAbsents = absentsByMonth[currentMonth] || 0;
   }
 
   return (
-    <main className="min-h-screen text-gray-900">
+    <main className="min-h-screen text-[#2F3A39]">
       <FancyBg />
 
       <header className="max-w-6xl mx-auto px-6 sm:px-10 py-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="h-11 w-11 rounded-2xl bg-black text-white grid place-items-center shadow-sm">
+          <div className="h-11 w-11 rounded-2xl bg-[#6E8F88] text-white shadow-md grid place-items-center shadow-sm">
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none">
               <path
                 d="M8 7V4m8 3V4M5 11h14M7 21h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v12a2 2 0 002 2z"
@@ -410,7 +410,7 @@ const completed = Boolean(completedKey);
     <tr>
       <td
         colSpan={16}
-        className="bg-gradient-to-r from-[#B8963D]/15 to-transparent text-sm font-semibold text-gray-900 py-4 px-4 uppercase tracking-wider"
+        className="bg-gradient-to-r from-[#B8963D]/15 to-transparent text-sm font-semibold text-[#2F3A39] py-4 px-4 uppercase tracking-wider"
       >
         {currentMonth}
       </td>
@@ -421,7 +421,7 @@ const completed = Boolean(completedKey);
                         <td className="py-4 pr-4 pl-2 font-medium text-gray-600">
   {getDayName(r.dateKey)}
 </td>
-                          <td className="py-4 pr-4 pl-2 font-medium text-gray-900">
+                          <td className="py-4 pr-4 pl-2 font-medium text-[#2F3A39]">
                             {r.dateKey ?? r.id}
                           </td>
                                                     <td className="py-4 px-4 border-l border-gray-100">
@@ -433,7 +433,7 @@ const completed = Boolean(completedKey);
                               "—"
                             )}
                           </td>
-                          <td className="py-4 px-4 text-gray-800 border-l border-gray-100">
+                          <td className="py-4 px-4 text-[#2F3A39] border-l border-gray-100">
                             {toText(r.sabak) || "—"}
                           </td>
                           <td className="py-4 px-4 text-gray-700 border-l border-gray-100">
@@ -443,34 +443,34 @@ const completed = Boolean(completedKey);
                           {toText(r.sabakReadNotes) || "—"}
                         </td>
 
-                          <td className="py-4 px-4 text-gray-800 border-l border-gray-100">
+                          <td className="py-4 px-4 text-[#2F3A39] border-l border-gray-100">
                             {toText(r.sabakDhor) || "—"}
                           </td>
                           <td className="py-4 px-4 text-gray-700 border-l border-gray-100">
                             {toText(r.sabakDhorRead) || "—"}
                           </td>
-                          <td className="py-4 px-4 text-gray-800 border-l border-gray-100">
+                          <td className="py-4 px-4 text-[#2F3A39] border-l border-gray-100">
                           {toText(r.sabakDhorReadNotes) || "—"}
                         </td>
 
-                          <td className="py-4 px-4 text-gray-800 border-l border-gray-100">
+                          <td className="py-4 px-4 text-[#2F3A39] border-l border-gray-100">
                             {toText(r.dhor) || "—"}
                           </td>
                           <td className="py-4 px-4 text-gray-700 border-l border-gray-100">
                             {toText(r.dhorRead) || "—"}
                           </td>
-                          <td className="py-4 px-4 text-gray-800 border-l border-gray-100">
+                          <td className="py-4 px-4 text-[#2F3A39] border-l border-gray-100">
   {toText(r.dhorReadNotes) || "—"}
 </td>
 
-                          <td className="py-4 px-4 text-gray-800 border-l border-gray-100">
+                          <td className="py-4 px-4 text-[#2F3A39] border-l border-gray-100">
                             {toText(r.sabakDhorMistakes) || "—"}
                           </td>
-                          <td className="py-4 px-4 text-gray-800 border-l border-gray-100">
+                          <td className="py-4 px-4 text-[#2F3A39] border-l border-gray-100">
                             {toText(r.dhorMistakes) || "—"}
                           </td>
 
-                          <td className="py-4 px-4 text-gray-800 border-l border-gray-100">
+                          <td className="py-4 px-4 text-[#2F3A39] border-l border-gray-100">
                             {toText(r.weeklyGoal) || "—"}
                           </td>
 
@@ -505,7 +505,7 @@ const completed = Boolean(completedKey);
                                     )}
                                   </td>
 
-                          <td className="py-4 px-4 text-gray-800 border-l border-gray-100">
+                          <td className="py-4 px-4 text-[#2F3A39] border-l border-gray-100">
                             {duration ? `${duration} day(s)` : "—"}
                           </td>
                         </tr>
@@ -527,32 +527,23 @@ const completed = Boolean(completedKey);
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="group relative overflow-hidden rounded-3xl border border-gray-300 bg-white/70 backdrop-blur p-6 shadow-sm hover:shadow-lg transition-all duration-300">
-      <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-[#B8963D] via-[#B8963D]/60 to-transparent" />
+      <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r bg-gradient-to-r from-[#6E8F88] via-[#6E8F88]/70 to-transparent" />
       <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#B8963D]/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       <div className="text-xs uppercase tracking-widest text-gray-500">{label}</div>
-      <div className="mt-2 text-3xl font-semibold tracking-tight text-gray-900">{value}</div>
+      <div className="mt-2 text-3xl font-semibold tracking-tight text-[#2F3A39]">{value}</div>
     </div>
   );
 }
-
 function FancyBg() {
   return (
-  <div className="pointer-events-none fixed inset-0 -z-10">
-  {/* Clean luxury base */}
-  <div className="absolute inset-0 bg-[#F8F6F1]" />
+    <div className="pointer-events-none fixed inset-0 -z-10">
+      <div className="absolute inset-0 bg-[#F6F4F2]" />
 
-  {/* Deep contrast blobs */}
-  <div className="absolute -top-72 -right-40 h-[900px] w-[900px] rounded-full bg-[#1F3F3F]/25 blur-3xl" />
-  <div className="absolute bottom-[-25%] left-[-15%] h-[1000px] w-[1000px] rounded-full bg-[#B8963D]/20 blur-3xl" />
+      <div className="absolute -top-40 left-[-10%] h-[700px] w-[700px] rounded-full bg-[#6E8F88]/20 blur-3xl" />
 
-  {/* Subtle radial glow */}
-  <div className="absolute inset-0 bg-[radial-gradient(1000px_circle_at_70%_20%,rgba(184,150,61,0.15),transparent_60%)]" />
+      <div className="absolute top-[20%] right-[-10%] h-[700px] w-[700px] rounded-full bg-[#C98F9D]/20 blur-3xl" />
 
-  {/* Elegant vignette */}
-  <div className="absolute inset-0 bg-[radial-gradient(900px_circle_at_50%_10%,transparent_50%,rgba(0,0,0,0.08))]" />
-
-  {/* Noise */}
-  <div className="absolute inset-0 opacity-[0.035] mix-blend-multiply bg-[url('/noise.png')]" />
-</div>
+      <div className="absolute inset-0 bg-[radial-gradient(800px_circle_at_50%_10%,transparent_60%,rgba(0,0,0,0.05))]" />
+    </div>
   );
 }

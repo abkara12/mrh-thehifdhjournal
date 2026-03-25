@@ -82,7 +82,7 @@ function Shell({
   children: React.ReactNode;
 }) {
   return (
-    <main className="min-h-screen text-gray-900">
+    <main className="min-h-screen text-[#2F3A39]">
      <div className="pointer-events-none fixed inset-0 -z-10">
   {/* Clean luxury base */}
   <div className="absolute inset-0 bg-[#F8F6F1]" />
@@ -540,7 +540,7 @@ if (nextCompletedKey && weeklyGoal.trim() !== "" && !markGoalCompleted) {
 
         {/* Attendance */}
 <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur-xl p-5 sm:p-6">
-  <div className="text-sm font-semibold text-gray-900">Attendance</div>
+  <div className="text-sm font-semibold text-[#2F3A39]">Attendance</div>
 
   <div className="mt-4 flex gap-3">
     <button
@@ -570,7 +570,7 @@ if (nextCompletedKey && weeklyGoal.trim() !== "" && !markGoalCompleted) {
 </div>
           {/* Sabak */}
           <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur-xl p-5 sm:p-6">
-            <div className="text-sm font-semibold text-gray-900">Sabak</div>
+            <div className="text-sm font-semibold text-[#2F3A39]">Sabak</div>
             <div className="mt-4 grid gap-4">
               <Field
                 label="Sabak amount"
@@ -598,7 +598,7 @@ if (nextCompletedKey && weeklyGoal.trim() !== "" && !markGoalCompleted) {
 
           {/* Sabak Dhor */}
           <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur-xl p-5 sm:p-6">
-            <div className="text-sm font-semibold text-gray-900">Sabak Dhor</div>
+            <div className="text-sm font-semibold text-[#2F3A39]">Sabak Dhor</div>
             <div className="mt-4 grid gap-4">
               <Field
                 label="Sabak Dhor amount"
@@ -633,7 +633,7 @@ if (nextCompletedKey && weeklyGoal.trim() !== "" && !markGoalCompleted) {
 
           {/* Dhor */}
           <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur-xl p-5 sm:p-6">
-            <div className="text-sm font-semibold text-gray-900">Dhor</div>
+            <div className="text-sm font-semibold text-[#2F3A39]">Dhor</div>
             <div className="mt-4 grid gap-4">
               <Field
                 label="Dhor amount"
@@ -670,7 +670,7 @@ if (nextCompletedKey && weeklyGoal.trim() !== "" && !markGoalCompleted) {
          <div className="rounded-3xl border border-gray-200 bg-white/70 p-5 sm:p-6">
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
               <div>
-                <div className="text-sm font-semibold text-[#5B726D]">Weekly Goal</div>
+                <div className="text-sm font-semibold text-[#6E8F88]">Weekly Goal</div>
                 <div className="mt-1 text-sm text-gray-700">
                   Set once per week. When finished, tick “Completed” to calculate duration.
                 </div>
@@ -684,7 +684,7 @@ if (nextCompletedKey && weeklyGoal.trim() !== "" && !markGoalCompleted) {
             <div className="mt-4 grid gap-4">
               <label className="grid gap-2">
                 <div className="flex items-end justify-between gap-4">
-                  <span className="text-sm font-semibold text-gray-900">Weekly Sabak Goal</span>
+                  <span className="text-sm font-semibold text-[#2F3A39]">Weekly Sabak Goal</span>
                   <span className="text-xs text-gray-500">
                     {goalLocked ? "Locked until completed" : "Set a new goal"}
                   </span>
@@ -694,7 +694,7 @@ if (nextCompletedKey && weeklyGoal.trim() !== "" && !markGoalCompleted) {
                   value={weeklyGoal}
                   onChange={(e) => setWeeklyGoal(e.target.value)}
                   disabled={goalLocked}
-                  className="h-12 rounded-2xl border border-gray-200 bg-white/80 px-4 outline-none focus:ring-2 focus:ring-[#A46B72]/30 disabled:opacity-60"
+                  className="h-12 rounded-2xl border border-gray-200 bg-white/80 px-4 outline-none focus:ring-2 focus:ring-[#C98F9D]/30 disabled:opacity-60"
                   placeholder="Example: 10 pages"
                 />
                 <p className="text-xs text-gray-500 mt-1">
@@ -713,7 +713,7 @@ if (nextCompletedKey && weeklyGoal.trim() !== "" && !markGoalCompleted) {
 
               <label className="flex items-center justify-between gap-4 rounded-2xl border border-gray-300 bg-white/70 px-4 py-4">
                 <div>
-                  <div className="text-sm font-semibold text-gray-900">Weekly Goal Completed</div>
+                  <div className="text-sm font-semibold text-[#2F3A39]">Weekly Goal Completed</div>
                   <div className="mt-1 text-xs text-gray-600">
                     Tick only when the student has finished their weekly goal.
                   </div>
@@ -766,7 +766,7 @@ function Field({
   return (
     <label className="grid gap-2">
       <div className="flex items-end justify-between gap-4">
-        <span className="text-sm font-semibold text-gray-900">{label}</span>
+        <span className="text-sm font-semibold text-[#2F3A39]">{label}</span>
         <span className="text-xs text-gray-500">{hint}</span>
       </div>
       <input
@@ -793,7 +793,7 @@ function SelectField({
   return (
     <label className="grid gap-2">
       <div className="flex items-end justify-between gap-4">
-        <span className="text-sm font-semibold text-gray-900">{label}</span>
+        <span className="text-sm font-semibold text-[#2F3A39]">{label}</span>
         <span className="text-xs text-gray-500">Select</span>
       </div>
       <select
@@ -815,7 +815,7 @@ function MiniInfo({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-2xl border border-gray-300 bg-white/70 px-4 py-3">
       <div className="text-xs text-gray-500">{label}</div>
-      <div className="mt-1 text-sm font-semibold text-gray-900 break-words">{value}</div>
+      <div className="mt-1 text-sm font-semibold text-[#2F3A39] break-words">{value}</div>
     </div>
   );
 }

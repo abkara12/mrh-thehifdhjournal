@@ -43,7 +43,7 @@ function PageShell({
   rightSlot?: React.ReactNode;
 }) {
   return (
-    <main className="min-h-screen text-gray-900">
+    <main className="min-h-screen text-[#2F3A39]">
       {/* Background (matches your site vibe) */}
      <div className="pointer-events-none fixed inset-0 -z-10">
   {/* Clean luxury base */}
@@ -292,7 +292,7 @@ export default function AdminPage() {
           </div>
 
           <div className="mt-6 grid gap-3">
-            <label className="text-sm font-semibold text-gray-900">
+            <label className="text-sm font-semibold text-[#2F3A39]">
               Students
             </label>
 
@@ -367,7 +367,7 @@ export default function AdminPage() {
 
         {/* Optional small footer note (clean + not boring) */}
         <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur-xl backdrop-blur p-6 shadow-sm">
-          <div className="text-sm font-semibold text-gray-900">
+          <div className="text-sm font-semibold text-[#2F3A39]">
             Tip for faster workflow
           </div>
           <p className="mt-1 text-sm text-gray-700">
