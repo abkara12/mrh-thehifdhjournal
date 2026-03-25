@@ -84,21 +84,13 @@ function Shell({
   return (
     <main className="min-h-screen text-[#2F3A39]">
      <div className="pointer-events-none fixed inset-0 -z-10">
-  {/* Clean luxury base */}
-  <div className="absolute inset-0 bg-[#F8F6F1]" />
+  <div className="absolute inset-0 bg-[#F6F4F2]" />
 
-  {/* Deep contrast blobs */}
-  <div className="absolute -top-72 -right-40 h-[900px] w-[900px] rounded-full bg-[#1F3F3F]/25 blur-3xl" />
-  <div className="absolute bottom-[-25%] left-[-15%] h-[1000px] w-[1000px] rounded-full bg-[#B8963D]/20 blur-3xl" />
+  <div className="absolute -top-40 left-[-10%] h-[700px] w-[700px] rounded-full bg-[#6E8F88]/20 blur-3xl" />
 
-  {/* Subtle radial glow */}
-  <div className="absolute inset-0 bg-[radial-gradient(1000px_circle_at_70%_20%,rgba(184,150,61,0.15),transparent_60%)]" />
+  <div className="absolute top-[20%] right-[-10%] h-[700px] w-[700px] rounded-full bg-[#C98F9D]/20 blur-3xl" />
 
-  {/* Elegant vignette */}
-  <div className="absolute inset-0 bg-[radial-gradient(900px_circle_at_50%_10%,transparent_50%,rgba(0,0,0,0.08))]" />
-
-  {/* Noise */}
-  <div className="absolute inset-0 opacity-[0.035] mix-blend-multiply bg-[url('/noise.png')]" />
+  <div className="absolute inset-0 bg-[radial-gradient(800px_circle_at_50%_10%,transparent_60%,rgba(0,0,0,0.05))]" />
 </div>
 
       <div className="max-w-5xl mx-auto px-5 sm:px-10 py-8 sm:py-10">
@@ -816,20 +808,6 @@ function MiniInfo({ label, value }: { label: string; value: string }) {
     <div className="rounded-2xl border border-gray-300 bg-white/70 px-4 py-3">
       <div className="text-xs text-gray-500">{label}</div>
       <div className="mt-1 text-sm font-semibold text-[#2F3A39] break-words">{value}</div>
-    </div>
-  );
-}
-
-function FancyBg() {
-  return (
-    <div className="pointer-events-none fixed inset-0 -z-10">
-      <div className="absolute inset-0 bg-[#F6F4F2]" />
-
-      <div className="absolute -top-40 left-[-10%] h-[700px] w-[700px] rounded-full bg-[#6E8F88]/20 blur-3xl" />
-
-      <div className="absolute top-[20%] right-[-10%] h-[700px] w-[700px] rounded-full bg-[#C98F9D]/20 blur-3xl" />
-
-      <div className="absolute inset-0 bg-[radial-gradient(800px_circle_at_50%_10%,transparent_60%,rgba(0,0,0,0.05))]" />
     </div>
   );
 }
