@@ -82,28 +82,29 @@ function Shell({
   children: React.ReactNode;
 }) {
   return (
-    <main className="min-h-screen text-[#5B726D]">
-      <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#efe8da] via-[#f7f4ee] to-white" />
-        <div className="absolute -top-56 left-[-10%] h-[780px] w-[780px] rounded-full bg-[#A46B72]/25 blur-3xl" />
-        <div className="absolute top-[-20%] right-[-15%] h-[900px] w-[900px] rounded-full bg-[#5B726D]/15 blur-3xl" />
-        <div className="absolute -bottom-72 left-[20%] h-[980px] w-[980px] rounded-full bg-[#A46B72]/18 blur-3xl" />
-        <div
-          className="absolute inset-0 opacity-[0.14]"
-          style={{
-            backgroundImage:
-              "linear-gradient(45deg, rgba(0,0,0,0.18) 1px, transparent 1px), linear-gradient(-45deg, rgba(0,0,0,0.18) 1px, transparent 1px)",
-            backgroundSize: "72px 72px",
-            backgroundPosition: "0 0, 36px 36px",
-          }}
-        />
-        <div className="absolute inset-0 bg-[radial-gradient(900px_circle_at_50%_12%,transparent_55%,rgba(0,0,0,0.10))]" />
-      </div>
+    <main className="min-h-screen text-gray-900">
+     <div className="pointer-events-none fixed inset-0 -z-10">
+  {/* Clean luxury base */}
+  <div className="absolute inset-0 bg-[#F8F6F1]" />
+
+  {/* Deep contrast blobs */}
+  <div className="absolute -top-72 -right-40 h-[900px] w-[900px] rounded-full bg-[#1F3F3F]/25 blur-3xl" />
+  <div className="absolute bottom-[-25%] left-[-15%] h-[1000px] w-[1000px] rounded-full bg-[#B8963D]/20 blur-3xl" />
+
+  {/* Subtle radial glow */}
+  <div className="absolute inset-0 bg-[radial-gradient(1000px_circle_at_70%_20%,rgba(184,150,61,0.15),transparent_60%)]" />
+
+  {/* Elegant vignette */}
+  <div className="absolute inset-0 bg-[radial-gradient(900px_circle_at_50%_10%,transparent_50%,rgba(0,0,0,0.08))]" />
+
+  {/* Noise */}
+  <div className="absolute inset-0 opacity-[0.035] mix-blend-multiply bg-[url('/noise.png')]" />
+</div>
 
       <div className="max-w-5xl mx-auto px-5 sm:px-10 py-8 sm:py-10">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
           <div className="min-w-0">
-            <p className="uppercase tracking-widest text-xs text-[#A46B72]">
+            <p className="uppercase tracking-widest text-xs text-[#B8963D]">
               Admin → Student
             </p>
             <h1 className="mt-2 text-2xl sm:text-4xl font-semibold tracking-tight break-words">
@@ -127,13 +128,13 @@ function Shell({
 
 function LoadingCard() {
   return (
-    <div className="rounded-3xl border border-gray-200 bg-white/60 backdrop-blur p-6 sm:p-7 shadow-sm">
-      <div className="h-5 w-40 bg-[#5B726D]/10 rounded-full animate-pulse" />
-      <div className="mt-3 h-10 w-2/3 bg-[#5B726D]/10 rounded-2xl animate-pulse" />
+    <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur-xl backdrop-blur p-6 sm:p-7 shadow-sm">
+      <div className="h-5 w-40 bg-black/10 rounded-full animate-pulse" />
+      <div className="mt-3 h-10 w-2/3 bg-black/10 rounded-2xl animate-pulse" />
       <div className="mt-6 grid gap-3">
-        <div className="h-12 bg-[#5B726D]/10 rounded-2xl animate-pulse" />
-        <div className="h-12 bg-[#5B726D]/10 rounded-2xl animate-pulse" />
-        <div className="h-12 bg-[#5B726D]/10 rounded-2xl animate-pulse" />
+        <div className="h-12 bg-black/10 rounded-2xl animate-pulse" />
+        <div className="h-12 bg-black/10 rounded-2xl animate-pulse" />
+        <div className="h-12 bg-black/10 rounded-2xl animate-pulse" />
       </div>
     </div>
   );
@@ -152,6 +153,9 @@ const READING_OPTIONS = [
 export default function AdminStudentPage() {
   const params = useParams<{ uid: string }>();
   const studentUid = params.uid;
+
+
+  const [attendance, setAttendance] = useState<"present" | "absent">("present");
 
   const [me, setMe] = useState<User | null>(null);
   const [checking, setChecking] = useState(true);
@@ -192,33 +196,42 @@ const [studentName, setStudentName] = useState("");
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
 
-    function resetFields(){
-      setSabak("");
-      setSabakDhor("");
-      setDhor("");
+      function resetFields() {
+  setSabak("");
+  setSabakDhor("");
+  setDhor("");
 
-      setSabakReadQuality("");
-      setSabakReadNotes("");  
+  setSabakReadQuality("");
+  setSabakReadNotes("");
 
-      setSabakDhorReadQuality("");
-      setSabakDhorReadNotes("");
+  setSabakDhorReadQuality("");
+  setSabakDhorReadNotes("");
 
-      setDhorReadQuality("");
-      setDhorReadNotes("");
+  setDhorReadQuality("");
+  setDhorReadNotes("");
 
-      setSabakDhorMistakes("");
-      setDhorMistakes("");
-    }
-
+  setSabakDhorMistakes("");
+  setDhorMistakes("");
+}
   const dateKey = useMemo(() => getDateKeySA(), []);
   const currentWeekKey = useMemo(() => isoWeekKeyFromDateKey(dateKey), [dateKey]);
 
   // weekly goal can be set only once per week
-  const goalLockedThisWeek =
-    weeklyGoal.trim().length > 0 && weeklyGoalWeekKey === currentWeekKey;
+const goalLocked =
+  weeklyGoal.trim().length > 0 &&
+  weeklyGoalWeekKey === currentWeekKey &&
+  !weeklyGoalCompletedDateKey;
 
   const goalAlreadyCompleted =
     Boolean(weeklyGoalCompletedDateKey) || (weeklyGoalDurationDays ?? 0) > 0;
+
+    
+
+      const goalNotReached =
+  weeklyGoal &&
+  weeklyGoalStartDateKey &&
+  !weeklyGoalCompletedDateKey &&
+  diffDaysInclusive(weeklyGoalStartDateKey, dateKey) > 7;
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (u) => {
@@ -242,8 +255,8 @@ const [studentName, setStudentName] = useState("");
     return () => unsub();
   }, []);
 
-  useEffect(() => {
-    async function loadStudent() {
+ useEffect(() => {
+  async function loadStudent() {
     if (!studentUid) return;
 
     // 🔹 Reset fields BEFORE loading student
@@ -262,45 +275,40 @@ const [studentName, setStudentName] = useState("");
           ? data.email
           : "Student";
 
-setStudentName(
-  toText(data.username) || toText(data.email) || "Student"
-);
-        setWeeklyGoal(toText(data.weeklyGoal));
-        setWeeklyGoalWeekKey(toText(data.weeklyGoalWeekKey));
-        setWeeklyGoalStartDateKey(toText(data.weeklyGoalStartDateKey));
-        setWeeklyGoalCompletedDateKey(toText(data.weeklyGoalCompletedDateKey));
+      setStudentName(name);
+      setWeeklyGoal(toText(data.weeklyGoal));
+      setWeeklyGoalWeekKey(toText(data.weeklyGoalWeekKey));
+      setWeeklyGoalStartDateKey(toText(data.weeklyGoalStartDateKey));
+      setWeeklyGoalCompletedDateKey(toText(data.weeklyGoalCompletedDateKey));
 
-        const dur = data.weeklyGoalDurationDays;
-        setWeeklyGoalDurationDays(typeof dur === "number" ? dur : dur ? Number(dur) : null);
+      const dur = data.weeklyGoalDurationDays;
+      setWeeklyGoalDurationDays(typeof dur === "number" ? dur : dur ? Number(dur) : null);
 
-        // // seed with snapshot
-        // setSabak(toText(data.currentSabak));
-        // setSabakDhor(toText(data.currentSabakDhor));
-        // setDhor(toText(data.currentDhor));
-        // setSabakDhorMistakes(toText(data.currentSabakDhorMistakes));
-        // setDhorMistakes(toText(data.currentDhorMistakes));
+      // // seed with snapshot
+      // setSabak(toText(data.currentSabak));
+      // setSabakDhor(toText(data.currentSabakDhor));
+      // setDhor(toText(data.currentDhor));
+      // setSabakDhorMistakes(toText(data.currentSabakDhorMistakes));
+      // setDhorMistakes(toText(data.currentDhorMistakes));
 
-        // // ✅ seed reading snapshot
-        // // read from either naming style
-        // setSabakReadQuality(pickText(data.currentSabakRead, data.currentSabakReadQuality));
-        // setSabakReadNotes(toText(data.currentSabakReadNotes));
+      // ✅ seed reading snapshot
+      // setSabakReadQuality(pickText(data.currentSabakRead, data.currentSabakReadQuality));
+      // setSabakReadNotes(toText(data.currentSabakReadNotes));
 
-        // setSabakDhorReadQuality(
-        //   pickText(data.currentSabakDhorRead, data.currentSabakDhorReadQuality)
-        // );
-        // setSabakDhorReadNotes(toText(data.currentSabakDhorReadNotes));
+      // setSabakDhorReadQuality(
+      //   pickText(data.currentSabakDhorRead, data.currentSabakDhorReadQuality)
+      // );
+      // setSabakDhorReadNotes(toText(data.currentSabakDhorReadNotes));
 
-        // setDhorReadQuality(pickText(data.currentDhorRead, data.currentDhorReadQuality));
-        // setDhorReadNotes(toText(data.currentDhorReadNotes));
-      }
-
-      // today's log overrides if exists
-      
+      // setDhorReadQuality(pickText(data.currentDhorRead, data.currentDhorReadQuality));
+      // setDhorReadNotes(toText(data.currentDhorReadNotes));
     }
+  }
 
-    if (studentUid) loadStudent();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [studentUid, dateKey]);
+  loadStudent();
+}, [studentUid, dateKey]);
+
+  
 async function handleSave(e: React.FormEvent) {
   e.preventDefault();
   if (!isAdmin) return;
@@ -319,21 +327,27 @@ async function handleSave(e: React.FormEvent) {
     let nextDuration: number | null = weeklyGoalDurationDays ?? null;
 
     if (nextGoal) {
-      const isNewWeekGoal = !nextWeekKey || nextWeekKey !== currentWeekKey;
-      if (isNewWeekGoal) {
-        nextWeekKey = currentWeekKey;
-        nextStartKey = dateKey;
-        nextCompletedKey = "";
-        nextDuration = null;
-        setMarkGoalCompleted(false);
-      }
+  // FIRST TIME setting goal
+  if (!nextStartKey) {
+    nextStartKey = dateKey;
+    nextWeekKey = currentWeekKey;
+  }
 
-      if (markGoalCompleted && !nextCompletedKey) {
-        const startKey = nextStartKey || dateKey;
-        nextCompletedKey = dateKey;
-        nextDuration = diffDaysInclusive(startKey, dateKey); // ✅ call the function, don’t pass it
-      }
-    }
+  // ✅ Mark completed
+  if (markGoalCompleted && !nextCompletedKey) {
+    nextCompletedKey = dateKey;
+    nextDuration = diffDaysInclusive(nextStartKey, dateKey);
+  }
+
+  // ✅ Allow NEW goal AFTER completion
+  // If goal was completed BEFORE and user is typing a NEW goal → reset
+if (nextCompletedKey && weeklyGoal.trim() !== "" && !markGoalCompleted) {
+  nextStartKey = dateKey;
+  nextCompletedKey = "";
+  nextDuration = null;
+  nextWeekKey = currentWeekKey;
+}
+}
 
     // ---- 1) Save daily log ----
     await setDoc(
@@ -341,6 +355,8 @@ async function handleSave(e: React.FormEvent) {
       {
         dateKey,
         createdAt: serverTimestamp(),
+
+        attendance,
 
         // Daily fields
         sabak,
@@ -431,7 +447,7 @@ async function handleSave(e: React.FormEvent) {
     setSaving(false);
   }
 }
-
+  
   if (checking) {
     return (
       <Shell title="Loading…" subtitle="Opening student page…">
@@ -443,18 +459,18 @@ async function handleSave(e: React.FormEvent) {
   if (!me) {
     return (
       <Shell title="Please sign in" subtitle="You must be signed in to log work for a student.">
-        <div className="rounded-3xl border border-gray-200 bg-white/70 backdrop-blur p-6 sm:p-7 shadow-sm">
+        <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur p-6 sm:p-7 shadow-sm">
           <p className="text-gray-700">Go to login, then return to the admin dashboard.</p>
           <div className="mt-5 flex flex-col sm:flex-row gap-3">
             <Link
               href="/login"
-              className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#A46B72] text-white text-sm font-semibold hover:bg-[#A46B72]"
+              className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-black text-white text-sm font-semibold hover:bg-gray-900"
             >
               Go to login
             </Link>
             <Link
               href="/admin"
-              className="inline-flex items-center justify-center h-11 px-6 rounded-full border border-gray-200 bg-white/70 hover:bg-white text-sm font-semibold"
+              className="inline-flex items-center justify-center h-11 px-6 rounded-full border border-gray-300 bg-white/70 hover:bg-white text-sm font-semibold"
             >
               Back to Admin
             </Link>
@@ -467,7 +483,7 @@ async function handleSave(e: React.FormEvent) {
   if (!isAdmin) {
     return (
       <Shell title="Access denied" subtitle="This account is not marked as admin.">
-        <div className="rounded-3xl border border-gray-200 bg-white/70 backdrop-blur p-6 sm:p-7 shadow-sm">
+        <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur p-6 sm:p-7 shadow-sm">
           <div className="text-sm text-gray-600">Signed in as</div>
           <div className="mt-1 font-semibold">{me.email}</div>
         </div>
@@ -483,49 +499,78 @@ async function handleSave(e: React.FormEvent) {
         <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
           <Link
             href="/admin"
-            className="inline-flex w-full sm:w-auto items-center justify-center h-11 px-5 rounded-full border border-gray-200 bg-white/70 hover:bg-white transition-colors text-sm font-semibold"
+            className="inline-flex w-full sm:w-auto items-center justify-center h-11 px-5 rounded-full border border-gray-300 bg-white/70 hover:bg-white transition-colors text-sm font-semibold"
           >
             Back
           </Link>
           <Link
             href={`/admin/student/${studentUid}/overview`}
-            className="inline-flex w-full sm:w-auto items-center justify-center h-11 px-5 rounded-full bg-[#A46B72] text-white hover:bg-[#A46B72] transition-colors text-sm font-semibold shadow-sm"
+            className="inline-flex w-full sm:w-auto items-center justify-center h-11 px-5 rounded-full bg-[#111111] text-white hover:bg-[#1c1c1c] shadow-lg shadow-black/10 transition-colors text-sm font-semibold shadow-sm"
           >
             Student Overview
           </Link>
         </div>
       }
     >
-      <div className="rounded-3xl border border-gray-200 bg-white/70 backdrop-blur p-5 sm:p-8 shadow-sm">
+      <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur p-5 sm:p-8 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white/70 px-4 py-2 text-xs font-semibold text-gray-700 w-fit">
-            <span className="h-2 w-2 rounded-full bg-[#A46B72]" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white/70 px-4 py-2 text-xs font-semibold text-gray-700 w-fit">
+            <span className="h-2 w-2 rounded-full bg-[#B8963D]" />
             Update today’s work
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            {weeklyGoal ? (
-              <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white/70 px-3 py-1.5 text-xs font-semibold text-gray-700">
-                Goal: {weeklyGoalWeekKey || currentWeekKey}
-              </span>
-            ) : null}
-
             {goalAlreadyCompleted ? (
-              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700">
-                Completed in {weeklyGoalDurationDays ?? "—"} day(s)
-              </span>
-            ) : weeklyGoal ? (
-              <span className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-700">
-                In progress
-              </span>
-            ) : null}
+  <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700">
+    Completed in {weeklyGoalDurationDays ?? "—"} day(s)
+  </span>
+) : goalNotReached ? (
+  <span className="inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700">
+    Not reached
+  </span>
+) : weeklyGoal ? (
+  <span className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-700">
+    In progress
+  </span>
+) : null}
           </div>
         </div>
 
         <form onSubmit={handleSave} className="mt-6 grid gap-5">
+
+        {/* Attendance */}
+<div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur-xl p-5 sm:p-6">
+  <div className="text-sm font-semibold text-gray-900">Attendance</div>
+
+  <div className="mt-4 flex gap-3">
+    <button
+      type="button"
+      onClick={() => setAttendance("present")}
+      className={`px-4 py-2 rounded-xl border ${
+        attendance === "present"
+          ? "bg-emerald-100 border-emerald-400 text-emerald-700"
+          : "bg-white border-gray-300"
+      }`}
+    >
+      Present
+    </button>
+
+    <button
+      type="button"
+      onClick={() => setAttendance("absent")}
+      className={`px-4 py-2 rounded-xl border ${
+        attendance === "absent"
+          ? "bg-red-100 border-red-400 text-red-700"
+          : "bg-white border-gray-300"
+      }`}
+    >
+      Absent
+    </button>
+  </div>
+</div>
           {/* Sabak */}
-          <div className="rounded-3xl border border-gray-200 bg-white/60 p-5 sm:p-6">
-            <div className="text-sm font-semibold text-[#5B726D]">Sabak</div>
+          <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur-xl p-5 sm:p-6">
+            <div className="text-sm font-semibold text-gray-900">Sabak</div>
             <div className="mt-4 grid gap-4">
               <Field
                 label="Sabak amount"
@@ -552,8 +597,8 @@ async function handleSave(e: React.FormEvent) {
           </div>
 
           {/* Sabak Dhor */}
-          <div className="rounded-3xl border border-gray-200 bg-white/60 p-5 sm:p-6">
-            <div className="text-sm font-semibold text-[#5B726D]">Sabak Dhor</div>
+          <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur-xl p-5 sm:p-6">
+            <div className="text-sm font-semibold text-gray-900">Sabak Dhor</div>
             <div className="mt-4 grid gap-4">
               <Field
                 label="Sabak Dhor amount"
@@ -587,8 +632,8 @@ async function handleSave(e: React.FormEvent) {
           </div>
 
           {/* Dhor */}
-          <div className="rounded-3xl border border-gray-200 bg-white/60 p-5 sm:p-6">
-            <div className="text-sm font-semibold text-[#5B726D]">Dhor</div>
+          <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur-xl p-5 sm:p-6">
+            <div className="text-sm font-semibold text-gray-900">Dhor</div>
             <div className="mt-4 grid gap-4">
               <Field
                 label="Dhor amount"
@@ -622,7 +667,7 @@ async function handleSave(e: React.FormEvent) {
           </div>
 
           {/* Weekly goal block */}
-          <div className="rounded-3xl border border-gray-200 bg-white/70 p-5 sm:p-6">
+         <div className="rounded-3xl border border-gray-200 bg-white/70 p-5 sm:p-6">
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
               <div>
                 <div className="text-sm font-semibold text-[#5B726D]">Weekly Goal</div>
@@ -639,19 +684,22 @@ async function handleSave(e: React.FormEvent) {
             <div className="mt-4 grid gap-4">
               <label className="grid gap-2">
                 <div className="flex items-end justify-between gap-4">
-                  <span className="text-sm font-semibold text-[#5B726D]">Weekly Sabak Goal</span>
+                  <span className="text-sm font-semibold text-gray-900">Weekly Sabak Goal</span>
                   <span className="text-xs text-gray-500">
-                    {goalLockedThisWeek ? "Locked (already set this week)" : "Set it now"}
+                    {goalLocked ? "Locked until completed" : "Set a new goal"}
                   </span>
                 </div>
 
-                <input
+                 <input
                   value={weeklyGoal}
                   onChange={(e) => setWeeklyGoal(e.target.value)}
-                  disabled={goalLockedThisWeek}
+                  disabled={goalLocked}
                   className="h-12 rounded-2xl border border-gray-200 bg-white/80 px-4 outline-none focus:ring-2 focus:ring-[#A46B72]/30 disabled:opacity-60"
                   placeholder="Example: 10 pages"
                 />
+                <p className="text-xs text-gray-500 mt-1">
+                After typing a new goal, press <span className="font-semibold">Enter</span> or click Save to activate it.
+              </p>
               </label>
 
               <div className="grid gap-2 sm:grid-cols-3">
@@ -663,9 +711,9 @@ async function handleSave(e: React.FormEvent) {
                 />
               </div>
 
-              <label className="flex items-center justify-between gap-4 rounded-2xl border border-gray-200 bg-white/70 px-4 py-4">
+              <label className="flex items-center justify-between gap-4 rounded-2xl border border-gray-300 bg-white/70 px-4 py-4">
                 <div>
-                  <div className="text-sm font-semibold text-[#5B726D]">Weekly Goal Completed</div>
+                  <div className="text-sm font-semibold text-gray-900">Weekly Goal Completed</div>
                   <div className="mt-1 text-xs text-gray-600">
                     Tick only when the student has finished their weekly goal.
                   </div>
@@ -674,7 +722,7 @@ async function handleSave(e: React.FormEvent) {
                 <input
                   type="checkbox"
                   checked={goalAlreadyCompleted ? true : markGoalCompleted}
-                  disabled={goalAlreadyCompleted || !weeklyGoal.trim()}
+                  disabled={!weeklyGoal.trim() || goalAlreadyCompleted}
                   onChange={(e) => setMarkGoalCompleted(e.target.checked)}
                   className="h-6 w-6 accent-black disabled:opacity-50"
                 />
@@ -685,7 +733,7 @@ async function handleSave(e: React.FormEvent) {
           <div className="pt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <button
               disabled={saving}
-              className="h-12 w-full sm:w-auto px-7 rounded-2xl bg-[#A46B72] text-white font-semibold hover:bg-[#A46B72] disabled:opacity-60 shadow-sm"
+              className="h-12 w-full sm:w-auto px-7 rounded-2xl bg-black text-white font-semibold hover:bg-gray-900 disabled:opacity-60 shadow-sm"
             >
               {saving ? "Saving..." : "Save"}
             </button>
@@ -718,13 +766,13 @@ function Field({
   return (
     <label className="grid gap-2">
       <div className="flex items-end justify-between gap-4">
-        <span className="text-sm font-semibold text-[#5B726D]">{label}</span>
+        <span className="text-sm font-semibold text-gray-900">{label}</span>
         <span className="text-xs text-gray-500">{hint}</span>
       </div>
       <input
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="h-12 rounded-2xl border border-gray-200 bg-white/80 px-4 outline-none focus:ring-2 focus:ring-[#A46B72]/30"
+        className="h-12 rounded-2xl border border-gray-300 bg-white/80 px-4 outline-none focus:ring-2 focus:ring-[#B8963D]/30"
         placeholder="Type here…"
       />
     </label>
@@ -745,13 +793,13 @@ function SelectField({
   return (
     <label className="grid gap-2">
       <div className="flex items-end justify-between gap-4">
-        <span className="text-sm font-semibold text-[#5B726D]">{label}</span>
+        <span className="text-sm font-semibold text-gray-900">{label}</span>
         <span className="text-xs text-gray-500">Select</span>
       </div>
       <select
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="h-12 rounded-2xl border border-gray-200 bg-white/80 px-4 outline-none focus:ring-2 focus:ring-[#A46B72]/30"
+        className="h-12 rounded-2xl border border-gray-300 bg-white/80 px-4 outline-none focus:ring-2 focus:ring-[#B8963D]/30"
       >
         {options.map((o) => (
           <option key={o.value} value={o.value}>
@@ -765,9 +813,9 @@ function SelectField({
 
 function MiniInfo({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white/70 px-4 py-3">
+    <div className="rounded-2xl border border-gray-300 bg-white/70 px-4 py-3">
       <div className="text-xs text-gray-500">{label}</div>
-      <div className="mt-1 text-sm font-semibold text-[#5B726D] break-words">{value}</div>
+      <div className="mt-1 text-sm font-semibold text-gray-900 break-words">{value}</div>
     </div>
   );
 }
