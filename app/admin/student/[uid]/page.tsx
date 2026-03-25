@@ -819,3 +819,17 @@ function MiniInfo({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
+function FancyBg() {
+  return (
+    <div className="pointer-events-none fixed inset-0 -z-10">
+      <div className="absolute inset-0 bg-[#F6F4F2]" />
+
+      <div className="absolute -top-40 left-[-10%] h-[700px] w-[700px] rounded-full bg-[#6E8F88]/20 blur-3xl" />
+
+      <div className="absolute top-[20%] right-[-10%] h-[700px] w-[700px] rounded-full bg-[#C98F9D]/20 blur-3xl" />
+
+      <div className="absolute inset-0 bg-[radial-gradient(800px_circle_at_50%_10%,transparent_60%,rgba(0,0,0,0.05))]" />
+    </div>
+  );
+}
