@@ -40,8 +40,9 @@ function diffDaysInclusive(startKey: string, endKey: string) {
 function isoWeekKeyFromDateKey(dateKey: string) {
   const d = parseDateKey(dateKey);
   const date = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-  const day = (date.getDay() + 6) % 7; // Mon=0..Sun=6
-  date.setDate(date.getDate() - day + 3); // Thu of current week
+  const day = (date.getDay() + 6) % 7;
+  date.setDate(date.getDate() - day + 3);
+
   const firstThursday = new Date(date.getFullYear(), 0, 4);
   const firstDay = (firstThursday.getDay() + 6) % 7;
   firstThursday.setDate(firstThursday.getDate() - firstDay + 3);
@@ -62,7 +63,6 @@ function toText(v: unknown) {
   return typeof v === "string" ? v : String(v);
 }
 
-// helper: prefer new field if present, else fallback
 function pickText(primary: unknown, fallback: unknown) {
   const p = toText(primary).trim();
   if (p) return p;
@@ -83,15 +83,12 @@ function Shell({
 }) {
   return (
     <main className="min-h-screen text-[#2F3A39]">
-     <div className="pointer-events-none fixed inset-0 -z-10">
-  <div className="absolute inset-0 bg-[#F6F4F2]" />
-
-  <div className="absolute -top-40 left-[-10%] h-[700px] w-[700px] rounded-full bg-[#6E8F88]/20 blur-3xl" />
-
-  <div className="absolute top-[20%] right-[-10%] h-[700px] w-[700px] rounded-full bg-[#C98F9D]/20 blur-3xl" />
-
-  <div className="absolute inset-0 bg-[radial-gradient(800px_circle_at_50%_10%,transparent_60%,rgba(0,0,0,0.05))]" />
-</div>
+      <div className="pointer-events-none fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-[#F6F4F2]" />
+        <div className="absolute -top-40 left-[-10%] h-[700px] w-[700px] rounded-full bg-[#6E8F88]/20 blur-3xl" />
+        <div className="absolute top-[20%] right-[-10%] h-[700px] w-[700px] rounded-full bg-[#C98F9D]/20 blur-3xl" />
+        <div className="absolute inset-0 bg-[radial-gradient(800px_circle_at_50%_10%,transparent_60%,rgba(0,0,0,0.05))]" />
+      </div>
 
       <div className="max-w-5xl mx-auto px-5 sm:px-10 py-8 sm:py-10">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
@@ -120,7 +117,7 @@ function Shell({
 
 function LoadingCard() {
   return (
-    <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur-xl backdrop-blur p-6 sm:p-7 shadow-sm">
+    <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur-xl p-6 sm:p-7 shadow-sm">
       <div className="h-5 w-40 bg-black/10 rounded-full animate-pulse" />
       <div className="mt-3 h-10 w-2/3 bg-black/10 rounded-2xl animate-pulse" />
       <div className="mt-6 grid gap-3">
@@ -132,7 +129,6 @@ function LoadingCard() {
   );
 }
 
-/** -------------------- Reading quality options -------------------- */
 const READING_OPTIONS = [
   { value: "", label: "Select…" },
   { value: "Excellent", label: "Excellent" },
@@ -141,11 +137,9 @@ const READING_OPTIONS = [
   { value: "Poor", label: "Poor" },
 ];
 
-/** -------------------- Page -------------------- */
 export default function AdminStudentPage() {
   const params = useParams<{ uid: string }>();
   const studentUid = params.uid;
-
 
   const [attendance, setAttendance] = useState<"present" | "absent">("present");
 
@@ -153,16 +147,12 @@ export default function AdminStudentPage() {
   const [checking, setChecking] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
-const [studentName, setStudentName] = useState("");
-  
-  // daily fields
+  const [studentName, setStudentName] = useState("");
+
   const [sabak, setSabak] = useState("");
   const [sabakDhor, setSabakDhor] = useState("");
   const [dhor, setDhor] = useState("");
 
-  // ✅ reading quality fields
-  // IMPORTANT: Student overview expects sabakRead / sabakDhorRead / dhorRead
-  // We keep quality state names, but we will SAVE to BOTH field-name styles.
   const [sabakReadQuality, setSabakReadQuality] = useState("");
   const [sabakReadNotes, setSabakReadNotes] = useState("");
 
@@ -172,58 +162,35 @@ const [studentName, setStudentName] = useState("");
   const [dhorReadQuality, setDhorReadQuality] = useState("");
   const [dhorReadNotes, setDhorReadNotes] = useState("");
 
-  // mistakes fields
   const [sabakDhorMistakes, setSabakDhorMistakes] = useState("");
   const [dhorMistakes, setDhorMistakes] = useState("");
 
-  // weekly goal fields (meta)
   const [weeklyGoal, setWeeklyGoal] = useState("");
   const [weeklyGoalWeekKey, setWeeklyGoalWeekKey] = useState("");
   const [weeklyGoalStartDateKey, setWeeklyGoalStartDateKey] = useState("");
   const [weeklyGoalCompletedDateKey, setWeeklyGoalCompletedDateKey] = useState("");
   const [weeklyGoalDurationDays, setWeeklyGoalDurationDays] = useState<number | null>(null);
 
-  // UI
   const [markGoalCompleted, setMarkGoalCompleted] = useState(false);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
 
-      function resetFields() {
-  setSabak("");
-  setSabakDhor("");
-  setDhor("");
-
-  setSabakReadQuality("");
-  setSabakReadNotes("");
-
-  setSabakDhorReadQuality("");
-  setSabakDhorReadNotes("");
-
-  setDhorReadQuality("");
-  setDhorReadNotes("");
-
-  setSabakDhorMistakes("");
-  setDhorMistakes("");
-}
   const dateKey = useMemo(() => getDateKeySA(), []);
   const currentWeekKey = useMemo(() => isoWeekKeyFromDateKey(dateKey), [dateKey]);
 
-  // weekly goal can be set only once per week
-const goalLocked =
-  weeklyGoal.trim().length > 0 &&
-  weeklyGoalWeekKey === currentWeekKey &&
-  !weeklyGoalCompletedDateKey;
+  const goalLocked =
+    weeklyGoal.trim().length > 0 &&
+    weeklyGoalWeekKey === currentWeekKey &&
+    !weeklyGoalCompletedDateKey;
 
   const goalAlreadyCompleted =
     Boolean(weeklyGoalCompletedDateKey) || (weeklyGoalDurationDays ?? 0) > 0;
 
-    
-
-      const goalNotReached =
-  weeklyGoal &&
-  weeklyGoalStartDateKey &&
-  !weeklyGoalCompletedDateKey &&
-  diffDaysInclusive(weeklyGoalStartDateKey, dateKey) > 7;
+  const goalNotReached =
+    weeklyGoal &&
+    weeklyGoalStartDateKey &&
+    !weeklyGoalCompletedDateKey &&
+    diffDaysInclusive(weeklyGoalStartDateKey, dateKey) > 7;
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (u) => {
@@ -247,199 +214,250 @@ const goalLocked =
     return () => unsub();
   }, []);
 
- useEffect(() => {
-  async function loadStudent() {
-    if (!studentUid) return;
+  useEffect(() => {
+    async function loadStudent() {
+      if (!studentUid) return;
 
-    // 🔹 Reset fields BEFORE loading student
-    resetFields();
-    setMarkGoalCompleted(false);
+      setMarkGoalCompleted(false);
+      setMsg(null);
+
+      const userRef = doc(db, "users", studentUid);
+      const logRef = doc(db, "users", studentUid, "logs", dateKey);
+
+      const [sDoc, logDoc] = await Promise.all([getDoc(userRef), getDoc(logRef)]);
+
+      if (sDoc.exists()) {
+        const data = sDoc.data() as any;
+
+        const name =
+          typeof data.username === "string"
+            ? data.username
+            : typeof data.email === "string"
+            ? data.email
+            : "Student";
+
+        setStudentName(name);
+        setWeeklyGoal(toText(data.weeklyGoal));
+        setWeeklyGoalWeekKey(toText(data.weeklyGoalWeekKey));
+        setWeeklyGoalStartDateKey(toText(data.weeklyGoalStartDateKey));
+        setWeeklyGoalCompletedDateKey(toText(data.weeklyGoalCompletedDateKey));
+
+        const dur = data.weeklyGoalDurationDays;
+        setWeeklyGoalDurationDays(
+          typeof dur === "number" ? dur : dur ? Number(dur) : null
+        );
+      }
+
+      if (logDoc.exists()) {
+        const log = logDoc.data() as any;
+
+        setAttendance(log.attendance === "absent" ? "absent" : "present");
+
+        setSabak(toText(log.sabak));
+        setSabakDhor(toText(log.sabakDhor));
+        setDhor(toText(log.dhor));
+
+        setSabakReadQuality(pickText(log.sabakRead, log.sabakReadQuality));
+        setSabakReadNotes(toText(log.sabakReadNotes));
+
+        setSabakDhorReadQuality(
+          pickText(log.sabakDhorRead, log.sabakDhorReadQuality)
+        );
+        setSabakDhorReadNotes(toText(log.sabakDhorReadNotes));
+
+        setDhorReadQuality(pickText(log.dhorRead, log.dhorReadQuality));
+        setDhorReadNotes(toText(log.dhorReadNotes));
+
+        setSabakDhorMistakes(toText(log.sabakDhorMistakes));
+        setDhorMistakes(toText(log.dhorMistakes));
+      } else {
+        setAttendance("present");
+
+        setSabak("");
+        setSabakDhor("");
+        setDhor("");
+
+        setSabakReadQuality("");
+        setSabakReadNotes("");
+
+        setSabakDhorReadQuality("");
+        setSabakDhorReadNotes("");
+
+        setDhorReadQuality("");
+        setDhorReadNotes("");
+
+        setSabakDhorMistakes("");
+        setDhorMistakes("");
+      }
+    }
+
+    loadStudent();
+  }, [studentUid, dateKey]);
+
+  async function handleSave(e: React.FormEvent) {
+    e.preventDefault();
+    if (!isAdmin) return;
+
+    setSaving(true);
     setMsg(null);
 
-    const sDoc = await getDoc(doc(db, "users", studentUid));
-    if (sDoc.exists()) {
-      const data = sDoc.data() as any;
+    try {
+      const userRef = doc(db, "users", studentUid);
+      const logRef = doc(db, "users", studentUid, "logs", dateKey);
 
-      const name =
-        typeof data.username === "string"
-          ? data.username
-          : typeof data.email === "string"
-          ? data.email
-          : "Student";
+      const existingLogSnap = await getDoc(logRef);
+      const existingLog = existingLogSnap.exists()
+        ? (existingLogSnap.data() as any)
+        : {};
 
-      setStudentName(name);
-      setWeeklyGoal(toText(data.weeklyGoal));
-      setWeeklyGoalWeekKey(toText(data.weeklyGoalWeekKey));
-      setWeeklyGoalStartDateKey(toText(data.weeklyGoalStartDateKey));
-      setWeeklyGoalCompletedDateKey(toText(data.weeklyGoalCompletedDateKey));
+      const finalAttendance = attendance || "present";
 
-      const dur = data.weeklyGoalDurationDays;
-      setWeeklyGoalDurationDays(typeof dur === "number" ? dur : dur ? Number(dur) : null);
+      const finalSabak = sabak;
+      const finalSabakDhor = sabakDhor;
+      const finalDhor = dhor;
 
-      // // seed with snapshot
-      // setSabak(toText(data.currentSabak));
-      // setSabakDhor(toText(data.currentSabakDhor));
-      // setDhor(toText(data.currentDhor));
-      // setSabakDhorMistakes(toText(data.currentSabakDhorMistakes));
-      // setDhorMistakes(toText(data.currentDhorMistakes));
+      const finalSabakReadQuality = sabakReadQuality;
+      const finalSabakReadNotes = sabakReadNotes;
 
-      // ✅ seed reading snapshot
-      // setSabakReadQuality(pickText(data.currentSabakRead, data.currentSabakReadQuality));
-      // setSabakReadNotes(toText(data.currentSabakReadNotes));
+      const finalSabakDhorReadQuality = sabakDhorReadQuality;
+      const finalSabakDhorReadNotes = sabakDhorReadNotes;
 
-      // setSabakDhorReadQuality(
-      //   pickText(data.currentSabakDhorRead, data.currentSabakDhorReadQuality)
-      // );
-      // setSabakDhorReadNotes(toText(data.currentSabakDhorReadNotes));
+      const finalDhorReadQuality = dhorReadQuality;
+      const finalDhorReadNotes = dhorReadNotes;
 
-      // setDhorReadQuality(pickText(data.currentDhorRead, data.currentDhorReadQuality));
-      // setDhorReadNotes(toText(data.currentDhorReadNotes));
+      const finalSabakDhorMistakes = sabakDhorMistakes;
+      const finalDhorMistakes = dhorMistakes;
+
+      let nextGoal = weeklyGoal.trim();
+      let nextWeekKey = weeklyGoalWeekKey;
+      let nextStartKey = weeklyGoalStartDateKey;
+      let nextCompletedKey = weeklyGoalCompletedDateKey;
+      let nextDuration: number | null = weeklyGoalDurationDays ?? null;
+
+      if (nextGoal) {
+        if (!nextStartKey) {
+          nextStartKey = dateKey;
+          nextWeekKey = currentWeekKey;
+        }
+
+        if (markGoalCompleted && !nextCompletedKey) {
+          nextCompletedKey = dateKey;
+          nextDuration = diffDaysInclusive(nextStartKey, dateKey);
+        }
+
+        if (nextCompletedKey && weeklyGoal.trim() !== "" && !markGoalCompleted) {
+          nextStartKey = dateKey;
+          nextCompletedKey = "";
+          nextDuration = null;
+          nextWeekKey = currentWeekKey;
+        }
+      }
+
+      await setDoc(
+        logRef,
+        {
+          dateKey,
+          createdAt: existingLog.createdAt ?? serverTimestamp(),
+
+          attendance: finalAttendance,
+
+          sabak: finalSabak,
+          sabakDhor: finalSabakDhor,
+          dhor: finalDhor,
+
+          sabakRead: finalSabakReadQuality,
+          sabakDhorRead: finalSabakDhorReadQuality,
+          dhorRead: finalDhorReadQuality,
+
+          sabakReadQuality: finalSabakReadQuality,
+          sabakDhorReadQuality: finalSabakDhorReadQuality,
+          dhorReadQuality: finalDhorReadQuality,
+
+          sabakReadNotes: finalSabakReadNotes,
+          sabakDhorReadNotes: finalSabakDhorReadNotes,
+          dhorReadNotes: finalDhorReadNotes,
+
+          sabakDhorMistakes: finalSabakDhorMistakes,
+          dhorMistakes: finalDhorMistakes,
+
+          weeklyGoal: nextGoal,
+          weeklyGoalWeekKey: nextWeekKey || null,
+          weeklyGoalStartDateKey: nextStartKey || null,
+          weeklyGoalCompletedDateKey: nextCompletedKey || null,
+          weeklyGoalDurationDays: nextDuration,
+          weeklyGoalCompleted: Boolean(nextCompletedKey),
+
+          updatedBy: me?.uid ?? null,
+          updatedByEmail: me?.email ?? null,
+        },
+        { merge: true }
+      );
+
+      await setDoc(
+        userRef,
+        {
+          weeklyGoal: nextGoal,
+          weeklyGoalWeekKey: nextWeekKey || null,
+          weeklyGoalStartDateKey: nextStartKey || null,
+          weeklyGoalCompletedDateKey: nextCompletedKey || null,
+          weeklyGoalDurationDays: nextDuration,
+
+          currentSabak: finalSabak,
+          currentSabakDhor: finalSabakDhor,
+          currentDhor: finalDhor,
+
+          currentSabakReadQuality: finalSabakReadQuality,
+          currentSabakDhorReadQuality: finalSabakDhorReadQuality,
+          currentDhorReadQuality: finalDhorReadQuality,
+
+          currentSabakReadNotes: finalSabakReadNotes,
+          currentSabakDhorReadNotes: finalSabakDhorReadNotes,
+          currentDhorReadNotes: finalDhorReadNotes,
+
+          currentSabakDhorMistakes: finalSabakDhorMistakes,
+          currentDhorMistakes: finalDhorMistakes,
+
+          updatedAt: serverTimestamp(),
+          lastUpdatedBy: me?.uid ?? null,
+        },
+        { merge: true }
+      );
+
+      setAttendance(finalAttendance);
+
+      setSabak(finalSabak);
+      setSabakDhor(finalSabakDhor);
+      setDhor(finalDhor);
+
+      setSabakReadQuality(finalSabakReadQuality);
+      setSabakReadNotes(finalSabakReadNotes);
+
+      setSabakDhorReadQuality(finalSabakDhorReadQuality);
+      setSabakDhorReadNotes(finalSabakDhorReadNotes);
+
+      setDhorReadQuality(finalDhorReadQuality);
+      setDhorReadNotes(finalDhorReadNotes);
+
+      setSabakDhorMistakes(finalSabakDhorMistakes);
+      setDhorMistakes(finalDhorMistakes);
+
+      setWeeklyGoal(nextGoal);
+      setWeeklyGoalWeekKey(nextWeekKey || "");
+      setWeeklyGoalStartDateKey(nextStartKey || "");
+      setWeeklyGoalCompletedDateKey(nextCompletedKey || "");
+      setWeeklyGoalDurationDays(nextDuration);
+
+      setMsg("Saved ✅");
+      setTimeout(() => setMsg(null), 2500);
+
+      setMarkGoalCompleted(false);
+    } catch (err: any) {
+      setMsg(err?.message ? `Error: ${err.message}` : "Error saving.");
+    } finally {
+      setSaving(false);
     }
   }
 
-  loadStudent();
-}, [studentUid, dateKey]);
-
-  
-async function handleSave(e: React.FormEvent) {
-  e.preventDefault();
-  if (!isAdmin) return;
-
-  setSaving(true);
-  setMsg(null);
-
-  try {
-    // ---- Weekly goal meta updates ----
-    let nextGoal = weeklyGoal.trim();
-    let nextWeekKey = weeklyGoalWeekKey;
-    let nextStartKey = weeklyGoalStartDateKey;
-    let nextCompletedKey = weeklyGoalCompletedDateKey;
-
-    // Compute duration safely
-    let nextDuration: number | null = weeklyGoalDurationDays ?? null;
-
-    if (nextGoal) {
-  // FIRST TIME setting goal
-  if (!nextStartKey) {
-    nextStartKey = dateKey;
-    nextWeekKey = currentWeekKey;
-  }
-
-  // ✅ Mark completed
-  if (markGoalCompleted && !nextCompletedKey) {
-    nextCompletedKey = dateKey;
-    nextDuration = diffDaysInclusive(nextStartKey, dateKey);
-  }
-
-  // ✅ Allow NEW goal AFTER completion
-  // If goal was completed BEFORE and user is typing a NEW goal → reset
-if (nextCompletedKey && weeklyGoal.trim() !== "" && !markGoalCompleted) {
-  nextStartKey = dateKey;
-  nextCompletedKey = "";
-  nextDuration = null;
-  nextWeekKey = currentWeekKey;
-}
-}
-
-    // ---- 1) Save daily log ----
-    await setDoc(
-      doc(db, "users", studentUid, "logs", dateKey),
-      {
-        dateKey,
-        createdAt: serverTimestamp(),
-
-        attendance,
-
-        // Daily fields
-        sabak,
-        sabakDhor,
-        dhor,
-
-        // Reading quality
-        sabakRead: sabakReadQuality,
-        sabakDhorRead: sabakDhorReadQuality,
-        dhorRead: dhorReadQuality,
-
-        sabakReadQuality,
-        sabakDhorReadQuality,
-        dhorReadQuality,
-
-        sabakReadNotes,
-        sabakDhorReadNotes,
-        dhorReadNotes,
-
-        // Mistakes
-        sabakDhorMistakes,
-        dhorMistakes,
-
-        // Weekly goal meta
-        weeklyGoal: nextGoal,
-        weeklyGoalWeekKey: nextWeekKey || null,
-        weeklyGoalStartDateKey: nextStartKey || null,
-        weeklyGoalCompletedDateKey: nextCompletedKey || null,
-        weeklyGoalDurationDays: nextDuration,
-        weeklyGoalCompleted: Boolean(nextCompletedKey),
-
-        // Updated by
-        updatedBy: me?.uid ?? null,
-        updatedByEmail: me?.email ?? null,
-      },
-      { merge: true }
-    );
-
-    // ---- 2) Save student snapshot ----
-    await setDoc(
-      doc(db, "users", studentUid),
-      {
-        weeklyGoal: nextGoal,
-        weeklyGoalWeekKey: nextWeekKey || null,
-        weeklyGoalStartDateKey: nextStartKey || null,
-        weeklyGoalCompletedDateKey: nextCompletedKey || null,
-        weeklyGoalDurationDays: nextDuration,
-
-        // Current snapshot of daily work
-        currentSabak: sabak,
-        currentSabakDhor: sabakDhor,
-        currentDhor: dhor,
-
-        currentSabakReadQuality: sabakReadQuality,
-        currentSabakDhorReadQuality: sabakDhorReadQuality,
-        currentDhorReadQuality: dhorReadQuality,
-
-        currentSabakReadNotes: sabakReadNotes,
-        currentSabakDhorReadNotes: sabakDhorReadNotes,
-        currentDhorReadNotes: dhorReadNotes,
-
-        currentSabakDhorMistakes: sabakDhorMistakes,
-        currentDhorMistakes: dhorMistakes,
-
-        updatedAt: serverTimestamp(),
-        lastUpdatedBy: me?.uid ?? null,
-      },
-      { merge: true }
-    );
-
-    // ---- Update local state ----
-    setWeeklyGoal(nextGoal);
-    setWeeklyGoalWeekKey(nextWeekKey || "");
-    setWeeklyGoalStartDateKey(nextStartKey || "");
-    setWeeklyGoalCompletedDateKey(nextCompletedKey || "");
-    setWeeklyGoalDurationDays(nextDuration);
-
-    setMsg("Saved ✅");
-    setTimeout(() => setMsg(null), 2500);
-
-    // Clear fields after saving
-    resetFields();
-    setMarkGoalCompleted(false);
-
-  } catch (err: any) {
-    setMsg(err?.message ? `Error: ${err.message}` : "Error saving.");
-  } finally {
-    setSaving(false);
-  }
-}
-  
   if (checking) {
     return (
       <Shell title="Loading…" subtitle="Opening student page…">
@@ -513,54 +531,52 @@ if (nextCompletedKey && weeklyGoal.trim() !== "" && !markGoalCompleted) {
 
           <div className="flex flex-wrap items-center gap-2">
             {goalAlreadyCompleted ? (
-  <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700">
-    Completed in {weeklyGoalDurationDays ?? "—"} day(s)
-  </span>
-) : goalNotReached ? (
-  <span className="inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700">
-    Not reached
-  </span>
-) : weeklyGoal ? (
-  <span className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-700">
-    In progress
-  </span>
-) : null}
+              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700">
+                Completed in {weeklyGoalDurationDays ?? "—"} day(s)
+              </span>
+            ) : goalNotReached ? (
+              <span className="inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700">
+                Not reached
+              </span>
+            ) : weeklyGoal ? (
+              <span className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-700">
+                In progress
+              </span>
+            ) : null}
           </div>
         </div>
 
         <form onSubmit={handleSave} className="mt-6 grid gap-5">
+          <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur-xl p-5 sm:p-6">
+            <div className="text-sm font-semibold text-[#2F3A39]">Attendance</div>
 
-        {/* Attendance */}
-<div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur-xl p-5 sm:p-6">
-  <div className="text-sm font-semibold text-[#2F3A39]">Attendance</div>
+            <div className="mt-4 flex gap-3">
+              <button
+                type="button"
+                onClick={() => setAttendance("present")}
+                className={`px-4 py-2 rounded-xl border ${
+                  attendance === "present"
+                    ? "bg-emerald-100 border-emerald-400 text-emerald-700"
+                    : "bg-white border-gray-300"
+                }`}
+              >
+                Present
+              </button>
 
-  <div className="mt-4 flex gap-3">
-    <button
-      type="button"
-      onClick={() => setAttendance("present")}
-      className={`px-4 py-2 rounded-xl border ${
-        attendance === "present"
-          ? "bg-emerald-100 border-emerald-400 text-emerald-700"
-          : "bg-white border-gray-300"
-      }`}
-    >
-      Present
-    </button>
+              <button
+                type="button"
+                onClick={() => setAttendance("absent")}
+                className={`px-4 py-2 rounded-xl border ${
+                  attendance === "absent"
+                    ? "bg-red-100 border-red-400 text-red-700"
+                    : "bg-white border-gray-300"
+                }`}
+              >
+                Absent
+              </button>
+            </div>
+          </div>
 
-    <button
-      type="button"
-      onClick={() => setAttendance("absent")}
-      className={`px-4 py-2 rounded-xl border ${
-        attendance === "absent"
-          ? "bg-red-100 border-red-400 text-red-700"
-          : "bg-white border-gray-300"
-      }`}
-    >
-      Absent
-    </button>
-  </div>
-</div>
-          {/* Sabak */}
           <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur-xl p-5 sm:p-6">
             <div className="text-sm font-semibold text-[#2F3A39]">Sabak</div>
             <div className="mt-4 grid gap-4">
@@ -588,7 +604,6 @@ if (nextCompletedKey && weeklyGoal.trim() !== "" && !markGoalCompleted) {
             </div>
           </div>
 
-          {/* Sabak Dhor */}
           <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur-xl p-5 sm:p-6">
             <div className="text-sm font-semibold text-[#2F3A39]">Sabak Dhor</div>
             <div className="mt-4 grid gap-4">
@@ -623,7 +638,6 @@ if (nextCompletedKey && weeklyGoal.trim() !== "" && !markGoalCompleted) {
             </div>
           </div>
 
-          {/* Dhor */}
           <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur-xl p-5 sm:p-6">
             <div className="text-sm font-semibold text-[#2F3A39]">Dhor</div>
             <div className="mt-4 grid gap-4">
@@ -658,8 +672,7 @@ if (nextCompletedKey && weeklyGoal.trim() !== "" && !markGoalCompleted) {
             </div>
           </div>
 
-          {/* Weekly goal block */}
-         <div className="rounded-3xl border border-gray-200 bg-white/70 p-5 sm:p-6">
+          <div className="rounded-3xl border border-gray-200 bg-white/70 p-5 sm:p-6">
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
               <div>
                 <div className="text-sm font-semibold text-[#6E8F88]">Weekly Goal</div>
@@ -682,7 +695,7 @@ if (nextCompletedKey && weeklyGoal.trim() !== "" && !markGoalCompleted) {
                   </span>
                 </div>
 
-                 <input
+                <input
                   value={weeklyGoal}
                   onChange={(e) => setWeeklyGoal(e.target.value)}
                   disabled={goalLocked}
@@ -690,8 +703,9 @@ if (nextCompletedKey && weeklyGoal.trim() !== "" && !markGoalCompleted) {
                   placeholder="Example: 10 pages"
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                After typing a new goal, press <span className="font-semibold">Enter</span> or click Save to activate it.
-              </p>
+                  After typing a new goal, press{" "}
+                  <span className="font-semibold">Enter</span> or click Save to activate it.
+                </p>
               </label>
 
               <div className="grid gap-2 sm:grid-cols-3">
