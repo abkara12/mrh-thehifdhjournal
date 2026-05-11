@@ -162,6 +162,8 @@ export default function AdminStudentPage() {
   const [dhorReadQuality, setDhorReadQuality] = useState("");
   const [dhorReadNotes, setDhorReadNotes] = useState("");
 
+  const [generalNotes, setGeneralNotes] = useState("");
+
   const [sabakDhorMistakes, setSabakDhorMistakes] = useState("");
   const [dhorMistakes, setDhorMistakes] = useState("");
 
@@ -269,6 +271,7 @@ export default function AdminStudentPage() {
         setDhorReadNotes(toText(log.dhorReadNotes));
 
         setSabakDhorMistakes(toText(log.sabakDhorMistakes));
+        setGeneralNotes(toText(log.generalNotes));
         setDhorMistakes(toText(log.dhorMistakes));
       } else {
         setAttendance("present");
@@ -288,6 +291,7 @@ export default function AdminStudentPage() {
 
         setSabakDhorMistakes("");
         setDhorMistakes("");
+        setGeneralNotes("");
       }
     }
 
@@ -327,6 +331,7 @@ export default function AdminStudentPage() {
 
       const finalSabakDhorMistakes = sabakDhorMistakes;
       const finalDhorMistakes = dhorMistakes;
+      const finalGeneralNotes = generalNotes;
 
       let nextGoal = weeklyGoal.trim();
       let nextWeekKey = weeklyGoalWeekKey;
@@ -379,6 +384,7 @@ export default function AdminStudentPage() {
 
           sabakDhorMistakes: finalSabakDhorMistakes,
           dhorMistakes: finalDhorMistakes,
+          generalNotes: finalGeneralNotes,
 
           weeklyGoal: nextGoal,
           weeklyGoalWeekKey: nextWeekKey || null,
@@ -416,6 +422,7 @@ export default function AdminStudentPage() {
 
           currentSabakDhorMistakes: finalSabakDhorMistakes,
           currentDhorMistakes: finalDhorMistakes,
+          currentGeneralNotes: finalGeneralNotes,
 
           updatedAt: serverTimestamp(),
           lastUpdatedBy: me?.uid ?? null,
@@ -440,6 +447,7 @@ export default function AdminStudentPage() {
 
       setSabakDhorMistakes(finalSabakDhorMistakes);
       setDhorMistakes(finalDhorMistakes);
+      setGeneralNotes(finalGeneralNotes);
 
       setWeeklyGoal(nextGoal);
       setWeeklyGoalWeekKey(nextWeekKey || "");
@@ -576,6 +584,20 @@ export default function AdminStudentPage() {
               </button>
             </div>
           </div>
+
+
+                <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur-xl p-5 sm:p-6">
+  <div className="text-sm font-semibold text-[#2F3A39]">General Notes</div>
+
+  <div className="mt-4">
+    <TextareaField
+      label="Overall note for today"
+      value={generalNotes}
+      setValue={setGeneralNotes}
+      hint="Behaviour, effort, concerns, parent note, etc."
+    />
+  </div>
+</div>
 
           <div className="rounded-3xl border border-gray-300 bg-white/70 backdrop-blur-xl p-5 sm:p-6">
             <div className="text-sm font-semibold text-[#2F3A39]">Sabak</div>
@@ -779,6 +801,35 @@ function Field({
         value={value}
         onChange={(e) => setValue(e.target.value)}
         className="h-12 rounded-2xl border border-gray-300 bg-white/80 px-4 outline-none focus:ring-2 focus:ring-[#B8963D]/30"
+        placeholder="Type here…"
+      />
+    </label>
+  );
+}
+
+function TextareaField({
+  label,
+  hint,
+  value,
+  setValue,
+}: {
+  label: string;
+  hint: string;
+  value: string;
+  setValue: (v: string) => void;
+}) {
+  return (
+    <label className="grid gap-2">
+      <div className="flex items-end justify-between gap-4">
+        <span className="text-sm font-semibold text-[#2F3A39]">{label}</span>
+        <span className="text-xs text-gray-500">{hint}</span>
+      </div>
+
+      <textarea
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        rows={3}
+        className="rounded-2xl border border-gray-300 bg-white/80 px-4 py-3 outline-none focus:ring-2 focus:ring-[#B8963D]/30 resize-none"
         placeholder="Type here…"
       />
     </label>

@@ -80,6 +80,7 @@ type LogRow = {
   dateKey?: string;
 
   attendance?: string;
+  generalNotes?: string;
 
   sabak?: string;
   sabakRead?: string;
@@ -391,6 +392,9 @@ const totalPresentLines = presentRows.reduce((sum, r) => sum + sabakToLines(r.sa
                        <th className="sticky top-0 bg-white/70 backdrop-blur-xl backdrop-blur pb-3 pr-4 pl-2 border-b border-gray-300">
                         Attendance
                       </th>
+                      <th className="sticky top-0 bg-white/70 backdrop-blur-xl backdrop-blur pb-3 px-4 border-b border-gray-300 border-l border-gray-100">
+                      General Notes
+                    </th>
 
                       <th className="sticky top-0 bg-white/70 backdrop-blur-xl backdrop-blur pb-3 px-4 border-b border-gray-300 border-l border-gray-100">
                         Sabak
@@ -476,7 +480,7 @@ const totalPresentLines = presentRows.reduce((sum, r) => sum + sabakToLines(r.sa
                       {showMonthHeader && (
                       <tr>
                       <td
-                         colSpan={16}
+                         colSpan={18}
                          className="bg-gradient-to-r from-[#B8963D]/15 to-transparent text-sm font-semibold text-[#2F3A39] py-4 px-4 uppercase tracking-wider"
                         >
                        {currentMonth}
@@ -501,7 +505,9 @@ const totalPresentLines = presentRows.reduce((sum, r) => sum + sabakToLines(r.sa
                               "—"
                             )}
                           </td>
-
+                            <td className="py-4 px-4 text-gray-700 border-l border-gray-100 max-w-[240px] whitespace-pre-wrap">
+                          {toText(r.generalNotes) || "—"}
+                        </td>
                           <td className="py-4 px-4 text-[#2F3A39] border-l border-gray-100">
                             {toText(r.sabak) || "—"}
                           </td>
